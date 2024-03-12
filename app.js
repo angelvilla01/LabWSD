@@ -1,24 +1,18 @@
 // app.js
 
-const express = require('express');
-const bodyParser = require('body-parser');
-const ejs = require('ejs');
-const notesController = require('./controllers/notesController'); // Importa el controlador
-
+import express, {json} from 'express';// Importa el controlador
 const app = express();
+
 app.set('view engine', 'ejs');
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json());
 app.use(express.static('public'));
 
 // Rutas
-app.get('/', notesController.getAllNotes);
-app.get('/new', (req, res) => res.render('new'));
-app.post('/new', notesController.createNote);
-app.get('/edit/:noteId', notesController.editNote);
-app.post('/edit/:noteId', notesController.updateNote);
-app.post('/delete/:noteId', notesController.deleteNote);
+import { notesRouter } from './routes/notesRoutes.js';
+//const notesRoutes = require('./routes/notesRoutes.js');
+app.use('/notes', notesRouter);
 
-app.listen(3000, () => {
-  console.log('Server started on port 3000');
-});
+const PORT = process.env.PORT || 3000;
 
+
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

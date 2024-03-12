@@ -1,47 +1,60 @@
+import { notesModel } from '../models/note.js';
 
-// controllers/notesController.js
-
-const sqlite3 = require('sqlite3').verbose();
-
-// Conexión a la base de datos SQLite (archivo local)
-const db = new sqlite3.Database('notes.db');
-
-const notesController = {
-  getAllNotes: (req, res) => {
-    db.all('SELECT * FROM notes', (err, rows) => {
-      if (!err) {
-        res.render('index', { notes: rows });
-      }
-    });
+export const notesController = {
+  getAllNotes: async (req, res) => {
+    try {
+      const notes = await notesModel.getAllNotes();
+      res.render('./index.ejs', { notes });
+    } catch (err) {
+      console.error(err);
+      res.status(500).send('Internal Server Error');
+    }
   },
 
-  createNote: (req, res) => {
-    const { title, content } = req.body;
-    db.run('INSERT INTO notes (title, content) VALUES (?, ?)', [title, content]);
-    res.redirect('/');
+  createNote: async (req, res) => {
+    try {
+      const { title, content } = req.body;
+      await notesModel.createNote(title, content);
+      res.redirect('/');
+    } catch (err) {
+      console.error(err);
+      res.status(500).send('Internal Server Error');
+    }
   },
 
-  editNote: (req, res) => {
-    const noteId = req.params.noteId;
-    db.get('SELECT * FROM notes WHERE id = ?', [noteId], (err, row) => {
-      if (!err) {
-        res.render('edit', { note: row });
-      }
-    });
+  editNote: async (req, res) => {
+    try {
+      const noteId = req.params.noteId;
+      const note = await notesModel.getNoteById(noteId);
+      res.render('edit', { note });
+    } catch (err) {
+      console.error(err);
+      res.status(500).send('Internal Server Error');
+    }
   },
 
-  updateNote: (req, res) => {
-    const noteId = req.params.noteId;
-    const { title, content } = req.body;
-    db.run('UPDATE notes SET title = ?, content = ? WHERE id = ?', [title, content, noteId]);
-    res.redirect('/');
+  updateNote: async (req, res) => {
+    try {
+      const noteId = req.params.noteId;
+      const { title, content } = req.body;
+      await notesModel.updateNoteById(noteId, title, content);
+      res.redirect('/');
+    } catch (err) {
+      console.error(err);
+      res.status(500).send('Internal Server Error');
+    }
   },
 
-  deleteNote: (req, res) => {
-    const noteId = req.params.noteId;
-    db.run('DELETE FROM notes WHERE id = ?', [noteId]);
-    res.redirect('/');
+  deleteNote: async (req, res) => {
+    try {
+      const noteId = req.params.noteId;
+      await notesModel.deleteNoteById(noteId);
+      res.redirect('/');
+    } catch (err) {
+      console.error(err);
+      res.status(500).send('Internal Server Error');
+    }
   },
 };
 
-module.exports = notesController;
+

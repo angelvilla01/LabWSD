@@ -1,15 +1,39 @@
 <!-- views/new.ejs -->
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <!-- ... -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create a New Note</title>
+    <!-- Agrega enlaces a tus estilos CSS si los tienes -->
+    <link rel="stylesheet" href="/styles/main.css">
+    <!-- ... Otros elementos head ... -->
 </head>
+
 <body>
-    <h1>Create a New Note</h1>
-    <form action="/new" method="POST">
-        <input type="text" name="title" placeholder="Title">
-        <textarea name="content" placeholder="Content"></textarea>
-        <button type="submit">Save Note</button>
-    </form>
+    <header>
+        <h1>Create a New Note</h1>
+    </header>
+
+    <main>
+        <form action="/new" method="POST">
+            <label for="title">Title:</label>
+            <input type="text" id="title" name="title" placeholder="Enter the title" required>
+
+            <label for="content">Content:</label>
+            <input type="text" id="content" name="content" placeholder="Enter the content" required></input>
+
+            <button type="submit">Save Note</button>
+        </form>
+    </main>
+
+    <footer>
+        <!-- ... Contenido del pie de página ... -->
+    </footer>
+
+    <!-- Scripts JS al final del body si es necesario -->
+    <script src="/scripts/app.js"></script> 
 </body>
+
 </html>
