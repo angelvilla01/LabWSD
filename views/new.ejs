@@ -1,39 +1,123 @@
-<!-- views/new.ejs -->
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Create a New Note</title>
-    <!-- Agrega enlaces a tus estilos CSS si los tienes -->
-    <link rel="stylesheet" href="/styles/main.css">
-    <!-- ... Otros elementos head ... -->
-</head>
+    <link
+      href="/node_modules/bootstrap/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/styles/main.css" />
+    <style>
+      body {
+        background-color: #f8f9fa;
+        border: 1px solid #ddd;
+        padding: 20px;
+      }
 
-<body>
-    <header>
-        <h1>Create a New Note</h1>
-    </header>
+      .container {
+        margin-top: 50px;
+        width: 100%;
+        display: flex; /* Use flexbox for layout */
+        flex-direction: column; /* Stack elements vertically */ /* Center elements horizontally */
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        align-items: center;
+        text-align: center;
+      }
 
-    <main>
-        <form action="/new" method="POST">
-            <label for="title">Title:</label>
-            <input type="text" id="title" name="title" placeholder="Enter the title" required>
+      h1 {
+        color: #007bff;
+        text-align: center;
+        margin-bottom: 20px;
+      }
 
-            <label for="content">Content:</label>
-            <input type="text" id="content" name="content" placeholder="Enter the content" required></input>
+      .form-wrapper {
+        /* Center the form horizontally */
+        margin: 0 auto;
+        width: 300px; /* Adjust width as needed */
+        align-items: center;
+      }
 
-            <button type="submit">Save Note</button>
-        </form>
-    </main>
+      label {
+        color: #007bff;
+        margin-top: 10px;
+      }
 
-    <footer>
-        <!-- ... Contenido del pie de página ... -->
-    </footer>
+      input {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        box-sizing: border-box;
+      }
 
-    <!-- Scripts JS al final del body si es necesario -->
-    <script src="/scripts/app.js"></script> 
-</body>
+      .btn-primary {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        margin-bottom: 10px;
+        align-items: center;
+        border-radius: 5px;
+        padding: 10px 20px;
+        font-family: Arial, sans-serif;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
 
+      .btn-primary:hover {
+        background-color: #0056b3;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <header class="text-center py-3">
+        <h1 class="h1">Create a New Note</h1>
+      </header>
+
+      <main class="px-3">
+        <div class="form-wrapper">
+          <form
+            class="form-wrapper"
+            action="/notes/new"
+            method="POST"
+            enctype="application/x-www-form-urlencoded"
+          >
+        
+            <div class="mb-3">
+              <input
+                type="text"
+                id="title"
+                name="title"
+                placeholder="Enter the title"
+                required
+                class="form-control"
+              />
+            </div>
+
+            <div class="mb-3">
+              <input
+                type="text"
+                id="content"
+                name="content"
+                placeholder="Enter the content"
+                required
+                class="form-control"
+              />
+            </div>
+
+            <button type="submit" class="btn btn-primary">Save Note</button>
+          </form>
+        </div>
+      </main>
+
+      <footer></footer>
+    </div>
+
+    <script src="/node_modules/bootstrap/bootstrap.bundle.min.js"></script>
+  </body>
 </html>

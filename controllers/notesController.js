@@ -1,9 +1,9 @@
-import { notesModel } from '../models/note.js';
+import { NotesModel } from '../models/note.js';
 
 export const notesController = {
-  getAllNotes: async (req, res) => {
+  getAllNotes: async (_req, res) => {
     try {
-      const notes = await notesModel.getAllNotes();
+      const notes = await NotesModel.getAllNotes();
       res.render('./index.ejs', { notes });
     } catch (err) {
       console.error(err);
@@ -11,11 +11,23 @@ export const notesController = {
     }
   },
 
+  getNoteById: async (req, res) => {
+    try {
+      const noteId = req.params.noteId;
+      const note = await NotesModel.getNoteById(noteId);
+      res.render('./noteInfo.ejs', { note });
+    } catch (err) {
+      console.error(err);
+      res.status(500).send('Internal Server Error');
+    }
+  },
+
   createNote: async (req, res) => {
+    
     try {
       const { title, content } = req.body;
-      await notesModel.createNote(title, content);
-      res.redirect('/');
+      await NotesModel.createNote(title, content);
+      res.redirect('/notes');
     } catch (err) {
       console.error(err);
       res.status(500).send('Internal Server Error');
@@ -25,7 +37,7 @@ export const notesController = {
   editNote: async (req, res) => {
     try {
       const noteId = req.params.noteId;
-      const note = await notesModel.getNoteById(noteId);
+      const note = await NotesModel.getNoteById(noteId);
       res.render('edit', { note });
     } catch (err) {
       console.error(err);
@@ -37,7 +49,7 @@ export const notesController = {
     try {
       const noteId = req.params.noteId;
       const { title, content } = req.body;
-      await notesModel.updateNoteById(noteId, title, content);
+      await NotesModel.updateNoteById(noteId, title, content);
       res.redirect('/');
     } catch (err) {
       console.error(err);
@@ -48,7 +60,7 @@ export const notesController = {
   deleteNote: async (req, res) => {
     try {
       const noteId = req.params.noteId;
-      await notesModel.deleteNoteById(noteId);
+      await NotesModel.deleteNoteById(noteId);
       res.redirect('/');
     } catch (err) {
       console.error(err);
