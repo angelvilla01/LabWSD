@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -58,6 +58,8 @@
         color: #fff;
         border: none;
         margin-bottom: 10px;
+        margin-left: 10px;
+        margin-right: 10px;
         align-items: center;
         border-radius: 5px;
         padding: 10px 20px;
@@ -85,7 +87,7 @@
             class="form-wrapper"
             action="/notes/new"
             method="POST"
-            enctype="application/x-www-form-urlencoded"
+            enctype="multipart/form-data"
           >
         
             <div class="mb-3">
@@ -109,9 +111,13 @@
                 class="form-control"
               />
             </div>
-
+            <label for="image" class="btn btn-primary">
+              <i class="bi bi-upload"></i> Select picture
+            </label>
+            <input id="image" type="file" name="image" accept="image/*" style="display: none;">
             <button type="submit" class="btn btn-primary">Save Note</button>
           </form>
+
         </div>
       </main>
 

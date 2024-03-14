@@ -1,5 +1,6 @@
 import { NotesModel } from '../models/note.js';
 
+
 export const notesController = {
   getAllNotes: async (_req, res) => {
     try {
@@ -26,7 +27,9 @@ export const notesController = {
     
     try {
       const { title, content } = req.body;
-      await NotesModel.createNote(title, content);
+      const file = req.file;
+      console.log(file);
+      await NotesModel.createNote(title, content, file.filename );
       res.redirect('/notes');
     } catch (err) {
       console.error(err);
