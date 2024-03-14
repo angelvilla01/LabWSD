@@ -43,15 +43,18 @@
         border-radius: 5px;
         margin-bottom: 5px;
         padding: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        
       }
 
       .list-group-item strong {
         color: #007bff;
       }
+      
 
       .btn-primary {
         margin-bottom: 10px;
-        background-color: #007bff;
+        background-color: #ff6347;
         color: #fff;
         border: none;
         border-radius: 5px;
@@ -63,7 +66,7 @@
       }
 
       .btn-primary:hover {
-        background-color: #0056b3;
+        background-color:#ff4500;
       }
     </style>
   </head>
@@ -78,18 +81,53 @@
         <ul class="list-group" type="none">
           <% notes.forEach(note => { %>
           <li class="list-group-item">
-            <a href="/notes/noteInfo/<%= note.id %>"
-              ><strong><%= note.title %></strong></a
+            <a href="/notes/noteInfo/<%= note.id %>"><strong><%= note.title %></strong></a>
+            <form action="/notes/edit/<%= note.id %>" method="GET" style="display: inline;">
+              <button type="submit" style="
+              background-color: #ffc107; /* Un color amarillo */
+              color: #fff; /* Texto blanco */
+              border: none; /* Sin bordes */
+              padding: 10px 20px; /* Espaciado interno */
+              margin: 10px; /* Espaciado externo */
+              border-radius: 5px; /* Bordes redondeados */
+              cursor: pointer; /* Cambia el cursor al pasar el ratón */
+              transition: background-color 0.3s ease; /* Transición suave al cambiar el color de fondo */
+            "
+            onmouseover="this.style.backgroundColor='#e0a800';" /* Cambia el color de fondo al pasar el ratón */
+            onmouseout="this.style.backgroundColor='#ffc107';" /* Cambia el color de fondo al quitar el ratón */
             >
+              Edit
+            </button>
+            </form>
+            <form action="/notes/delete/<%= note.id %>" method="POST" style="display: inline;">
+              <button type="submit" style="
+                background-color: #dc3545; /* Un color rojo */
+                color: #fff; /* Texto blanco */
+                border: none; /* Sin bordes */
+                padding: 10px 20px; /* Espaciado interno */
+                margin: 10px; /* Espaciado externo */
+                border-radius: 5px; /* Bordes redondeados */
+                cursor: pointer; /* Cambia el cursor al pasar el ratón */
+                transition: background-color 0.3s ease; /* Transición suave al cambiar el color de fondo */
+              "
+              onmouseover="this.style.backgroundColor='#c82333';" /* Cambia el color de fondo al pasar el ratón */
+              onmouseout="this.style.backgroundColor='#dc3545';" /* Cambia el color de fondo al quitar el ratón */
+              >
+                Delete
+              </button>
+            </form>
           </li>
           <% }); %>
-        </ul>
+        </ul> 
         <% } %>
         <form action="/notes/new" method="GET">
           <button class="btn-primary" type="submit">Add Note</button>
         </form>
       </div>
     </div>
+
+
+   
 
     <script src="/node_modules/bootstrap/bootstrap.bundle.min.js"></script>
   </body>

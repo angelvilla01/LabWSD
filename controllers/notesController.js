@@ -24,12 +24,17 @@ export const notesController = {
   },
 
   createNote: async (req, res) => {
-    
     try {
       const { title, content } = req.body;
       const file = req.file;
+
+      if (!file) {
+        console.log('No file uploaded');
+        return res.status(400).send('No file uploaded');
+      }
+
       console.log(file);
-      await NotesModel.createNote(title, content, file.filename );
+      await NotesModel.createNote(title, content, file.filename);
       res.redirect('/notes');
     } catch (err) {
       console.error(err);
@@ -37,16 +42,6 @@ export const notesController = {
     }
   },
 
-  editNote: async (req, res) => {
-    try {
-      const noteId = req.params.noteId;
-      const note = await NotesModel.getNoteById(noteId);
-      res.render('edit', { note });
-    } catch (err) {
-      console.error(err);
-      res.status(500).send('Internal Server Error');
-    }
-  },
 
   updateNote: async (req, res) => {
     try {
