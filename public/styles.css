@@ -1,0 +1,95 @@
+  
+      body {
+        background-color: #f8f9fa;
+        border: 1px solid #ddd;
+        padding: 20px;
+        text-align: center;
+      }
+
+      .container {
+        margin-top: 50px;
+        width: 100%; /* Set a fixed width */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+      }
+
+      h1 {
+        color: #007bff;
+        text-align: center;
+        margin-bottom: 20px;
+      }
+
+      .list-group {
+        background-color: transparent;
+        border-color: transparent;
+        padding: 10px;
+      }
+
+      .list-group-item {
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        margin-bottom: 5px;
+        padding: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        
+      }
+
+      .list-group-item strong {
+        color: #007bff;
+      }
+      
+
+      .btn-primary {
+        margin-bottom: 10px;
+        background-color: #ff6347;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        padding: 10px 20px;
+        font-family: Arial, sans-serif;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      .btn-primary:hover {
+        background-color:#ff4500;
+      }
+
+    /* public/css/styles.css */
+
+    .edit-button {
+      background-color: #ffc107;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      margin: 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .edit-button:hover {
+      background-color: #e0a800;
+    }
+
+    .delete-button {
+      background-color: #dc3545;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      margin: 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .delete-button:hover {
+      background-color: #c82333;
+    }
+
+
+    

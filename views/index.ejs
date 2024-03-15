@@ -8,67 +8,9 @@
       href="/node_modules/bootstrap/dist/css/bootstrap.min.css"
       rel="stylesheet"
     />
-    <style>
-      body {
-        background-color: #f8f9fa;
-        border: 1px solid #ddd;
-        padding: 20px;
-        text-align: center;
-      }
+    <link rel="stylesheet" href="/styles.css" />
 
-      .container {
-        margin-top: 50px;
-        width: 100%; /* Set a fixed width */
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-      }
-
-      h1 {
-        color: #007bff;
-        text-align: center;
-        margin-bottom: 20px;
-      }
-
-      .list-group {
-        background-color: transparent;
-        border-color: transparent;
-        padding: 10px;
-      }
-
-      .list-group-item {
-        background-color: #fff;
-        border: 1px solid #ddd;
-        border-radius: 5px;
-        margin-bottom: 5px;
-        padding: 10px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        
-      }
-
-      .list-group-item strong {
-        color: #007bff;
-      }
-      
-
-      .btn-primary {
-        margin-bottom: 10px;
-        background-color: #ff6347;
-        color: #fff;
-        border: none;
-        border-radius: 5px;
-        padding: 10px 20px;
-        font-family: Arial, sans-serif;
-        font-size: 16px;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-      }
-
-      .btn-primary:hover {
-        background-color:#ff4500;
-      }
-    </style>
+  
   </head>
   <body>
     <div class="container">
@@ -83,38 +25,10 @@
           <li class="list-group-item">
             <a href="/notes/noteInfo/<%= note.id %>"><strong><%= note.title %></strong></a>
             <form action="/notes/edit/<%= note.id %>" method="GET" style="display: inline;">
-              <button type="submit" style="
-              background-color: #ffc107; /* Un color amarillo */
-              color: #fff; /* Texto blanco */
-              border: none; /* Sin bordes */
-              padding: 10px 20px; /* Espaciado interno */
-              margin: 10px; /* Espaciado externo */
-              border-radius: 5px; /* Bordes redondeados */
-              cursor: pointer; /* Cambia el cursor al pasar el ratón */
-              transition: background-color 0.3s ease; /* Transición suave al cambiar el color de fondo */
-            "
-            onmouseover="this.style.backgroundColor='#e0a800';" /* Cambia el color de fondo al pasar el ratón */
-            onmouseout="this.style.backgroundColor='#ffc107';" /* Cambia el color de fondo al quitar el ratón */
-            >
-              Edit
-            </button>
+              <button type="submit" class="edit-button">Edit</button>
             </form>
             <form action="/notes/delete/<%= note.id %>" method="POST" style="display: inline;">
-              <button type="submit" style="
-                background-color: #dc3545; /* Un color rojo */
-                color: #fff; /* Texto blanco */
-                border: none; /* Sin bordes */
-                padding: 10px 20px; /* Espaciado interno */
-                margin: 10px; /* Espaciado externo */
-                border-radius: 5px; /* Bordes redondeados */
-                cursor: pointer; /* Cambia el cursor al pasar el ratón */
-                transition: background-color 0.3s ease; /* Transición suave al cambiar el color de fondo */
-              "
-              onmouseover="this.style.backgroundColor='#c82333';" /* Cambia el color de fondo al pasar el ratón */
-              onmouseout="this.style.backgroundColor='#dc3545';" /* Cambia el color de fondo al quitar el ratón */
-              >
-                Delete
-              </button>
+              <button type="submit" class="delete-button">Delete</button>
             </form>
           </li>
           <% }); %>
