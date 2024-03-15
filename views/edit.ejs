@@ -7,8 +7,8 @@
 <body>
     <h1>Edit Note</h1>
     <form action="/notes/edit/<%= note.id %>" method="POST">
-        <input type="text" name="title" value="<%= note.title %>">
-        <textarea name="content"><%= note.content %></textarea>
+        <input type="text" name="title" >
+        <textarea name="content"><%= note.id %></textarea>
         <button type="submit">Update Note</button>
     </form>
 </body>

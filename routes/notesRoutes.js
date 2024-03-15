@@ -5,11 +5,11 @@ import { notesController } from '../controllers/notesController.js';
 
 notesRouter.get('/', notesController.getAllNotes);
 notesRouter.get('/new', (_req, res) => res.render('./new.ejs'));
-notesRouter.get('/noteInfo/:noteId', notesController.getNoteById);
+notesRouter.get('/noteInfo/:noteId',(req,res) => notesController.getNoteById(req,res,'./noteInfo.ejs'));
 notesRouter.post('/new', upload.single('image'),notesController.createNote);
-notesRouter.get('/edit/:noteId', notesController.updateNote);
+notesRouter.get('/edit/:noteId', (req,res) => notesController.getNoteById(req,res,'./edit.ejs'));
 notesRouter.post('/edit/:noteId', notesController.updateNote);
 notesRouter.post('/delete/:noteId', notesController.deleteNote);
 
-//module.exports = notesRouter;
+// Path: LabWSD/routes/notesRoutes.js
 

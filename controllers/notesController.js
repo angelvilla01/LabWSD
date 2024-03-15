@@ -12,30 +12,26 @@ export const notesController = {
     }
   },
 
-  getNoteById: async (req, res) => {
+  getNoteById: async (req, res, view) => {
     try {
       const noteId = req.params.noteId;
       const note = await NotesModel.getNoteById(noteId);
-      res.render('./noteInfo.ejs', { note });
+      res.render(view, { note });
     } catch (err) {
       console.error(err);
       res.status(500).send('Internal Server Error');
     }
   },
 
+
   createNote: async (req, res) => {
     try {
       const { title, content } = req.body;
       const file = req.file;
 
-      if (!file) {
-        console.log('No file uploaded');
-        return res.status(400).send('No file uploaded');
-      }
-
-      console.log(file);
-      await NotesModel.createNote(title, content, file.filename);
-      res.redirect('/notes');
+      const filename = file ? file.filename : null;
+      await NotesModel.createNote(title, content, filename);
+      res.redirect('/');
     } catch (err) {
       console.error(err);
       res.status(500).send('Internal Server Error');
