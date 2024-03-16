@@ -59,6 +59,7 @@
         background-color:#ff4500;
       }
 
+     
     /* public/css/styles.css */
 
     .edit-button {
@@ -92,4 +93,46 @@
     }
 
 
-    
+
+    .containerEdit {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #f0f0f0; /* Un color de fondo claro */
+    }
+
+    .note-form .form-group {
+      margin-bottom: 20px;
+    }
+
+    .note-form .form-control {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      background-color: #fff; /* Un color de fondo blanco para los campos de entrada */
+    }
+
+    .note-form .form-control:focus {
+      border-color: #007bff; /* Un color de borde azul cuando el campo de entrada está enfocado */
+    }
+
+    .note-form label {
+      font-size: 24px; /* Ajusta este valor según tus necesidades */
+      color: #007bff; /* Un color de texto azul para las etiquetas */
+    }
+
+    .note-form button[type="submit"] {
+      padding: 10px 20px;
+      background-color: #007bff; /* Un color de fondo azul para el botón de envío */
+      color: #fff; /* Un color de texto blanco para el botón de envío */
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .note-form button[type="submit"]:hover {
+      background-color: #0056b3; /* Un color de fondo azul oscuro cuando se pasa el ratón por encima del botón de envío */
+    }
+ 

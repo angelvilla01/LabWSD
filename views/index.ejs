@@ -22,6 +22,7 @@
         <% } else { %>
         <ul class="list-group" type="none">
           <% notes.forEach(note => { %>
+            
           <li class="list-group-item">
             <a href="/notes/noteInfo/<%= note.id %>"><strong><%= note.title %></strong></a>
             <form action="/notes/edit/<%= note.id %>" method="GET" style="display: inline;">
