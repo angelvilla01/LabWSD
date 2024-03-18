@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <link rel="stylesheet" href="/styles.css">
     <style>
@@ -8,6 +9,7 @@
             font-size: 16px;
             color: black;
         }
+
         .inputEdit {
             font-family: Arial;
             font-size: 16px;
@@ -15,51 +17,30 @@
         }
     </style>
 </head>
+
 <body>
     <div class="containerEdit">
         <h1>Edit Note</h1>
-        <form action="/notes/edit/<%= note.id %>" method="POST" class="note-form">
+        <form action="/notes/edit/<%= note.id %>" method="POST" class="note-form" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="title">Title</label>
                 <input type="text" id="title" name="title" class="form-control inputEdit" value="<%= note.title %>">
             </div>
             <div class="form-group">
                 <label for="content">Content</label>
-                <input type="text" id="content" name="content" class="form-control inputEdit" value="<%= note.content %>">
+                <input type="text" id="content" name="content" class="form-control inputEdit"
+                    value="<%= note.content %>">
             </div>
             <button type="submit" class="btn btn-primary">Update Note</button>
+            <label for="image" class="btn btn-primary">
+                <i class="bi bi-upload"></i> Select picture
+            </label>
+
+            <input id="image" type="file" name="image" accept="image/*" style="display: none;">
         </form>
-        <div class="form-group">
-            <label for="font-family">Font Family</label>
-            <select id="font-family" name="font-family" class="form-control" onchange="changeFontFamily(this.value)">
-                <option value="Arial">Arial</option>
-                <option value="Verdana">Verdana</option>
-                <option value="Courier New">Courier New</option>
-                <!-- Agrega más opciones según sea necesario -->
-            </select>
-        </div>
-        <div class="form-group">
-            <label for="font-size">Font Size</label>
-            <input type="number" id="font-size" name="font-size" class="form-control" min="1" onchange="changeFontSize(this.value)">
-        </div>
-        <div class="form-group">
-            <label for="font-color">Font Color</label>
-            <input type="color" id="font-color" name="font-color" class="form-control" onchange="changeFontColor(this.value)">
-        </div>
-    </div>
 
-    <script>
-        function changeFontFamily(fontFamily) {
-            document.querySelector('.inputEdit').style.fontFamily = fontFamily;
-        }
 
-        function changeFontSize(fontSize) {
-            document.querySelector('.inputEdit').style.fontSize = fontSize + 'px';
-        }
 
-        function changeFontColor(fontColor) {
-            document.querySelector('.inputEdit').style.color = fontColor;
-        }
-    </script>
 </body>
+
 </html>

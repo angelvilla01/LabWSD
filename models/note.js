@@ -40,9 +40,9 @@ export class NotesModel {
     });
   };
 
-  static updateNoteById = async (noteId, title, content) => {
+  static updateNoteById = async (noteId, title, content, filename) => {
     return new Promise((resolve, reject) => {
-      db.run('UPDATE notes SET title = ?, content = ? WHERE id = ?', [title, content, noteId], (err) => {
+      db.run('UPDATE notes SET title = ?, content = ?, image_id = ? WHERE id = ?', [title, content,filename, noteId], (err) => {
         if (err) {
           reject(err);
         } else {

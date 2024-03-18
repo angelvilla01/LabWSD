@@ -57,21 +57,31 @@
     background-color: transparent;
     border-color: transparent;
     padding: 10px;
+    width: 100%;
+
   }
 
   .list-group-item {
     background-color: #fff;
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    align-items: center;
     border: 1px solid #ddd;
     border-radius: 5px;
     margin-bottom: 5px;
     padding: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 
-
   }
+
+
 
   .list-group-item strong {
     color: #007bff;
+    flex: 1;
+    font-size: 20px;
+    
   }
 
 
@@ -80,8 +90,8 @@
     margin-bottom: 10px;
     margin-right: 10px;
     margin-left: 10px;
-    background-color: #ff6347;
-    color: #fff;
+    background-color: #1c88fb;
+    color: #ffffff;
     border: none;
     border-radius: 5px;
     padding: 10px 20px;
@@ -92,7 +102,7 @@
   }
 
   .btn-primary:hover {
-    background-color: #ff4500;
+    background-color: #4914f7;
   }
 
 
@@ -100,10 +110,11 @@
 
   .edit-button {
     background-color: #ffc107;
+
     color: #fff;
     border: none;
     padding: 10px 20px;
-    margin: 10px;
+
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
@@ -119,7 +130,7 @@
     color: #fff;
     border: none;
     padding: 10px 20px;
-    margin: 10px;
+
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
@@ -169,19 +180,50 @@
     /* Un color de texto azul para las etiquetas */
   }
 
-  .note-form button[type="submit"] {
-    padding: 10px 20px;
-    background-color: #007bff;
-    /* Un color de fondo azul para el botón de envío */
-    color: #fff;
-    /* Un color de texto blanco para el botón de envío */
+  .note-form .btn-primary {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    margin-left: 10px;
+    background-color: #1c88fb;
+    color: #ffffff;
     border: none;
-    border-radius: 4px;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-family: Arial, sans-serif;
+    font-size: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+  }
+
+  .note-form .btn-primary:hover {
+    background-color: #4914f7;
+  }
+
+  .checkbox {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    margin-left: 10px;
+    background-color: #1c88fb;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-family: Arial, sans-serif;
+    font-size: 20px;
     cursor: pointer;
     transition: background-color 0.3s ease;
   }
 
-  .note-form button[type="submit"]:hover {
-    background-color: #0056b3;
-    /* Un color de fondo azul oscuro cuando se pasa el ratón por encima del botón de envío */
+ .list-group-item .button-container {
+    display: flex;
+    justify-content: flex-end;
+   gap: 10px;
   }
+
+  .edit-button, .delete-button {
+    margin: 0;
+  }
+  

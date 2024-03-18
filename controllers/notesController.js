@@ -42,8 +42,19 @@ export const notesController = {
   updateNote: async (req, res) => {
     try {
       const noteId = req.params.noteId;
+      const note = await NotesModel.getNoteById(noteId);
+
       const { title, content } = req.body;
-      await NotesModel.updateNoteById(noteId, title, content);
+
+      const file = req.file;
+      let filename = file ? file.filename : null;
+      
+      console.log('filename', filename);
+
+      if (filename === null)
+        filename = note.image_id;
+
+      await NotesModel.updateNoteById(noteId, title, content, filename);
       res.redirect('/');
     } catch (err) {
       console.error(err);
@@ -61,6 +72,8 @@ export const notesController = {
       res.status(500).send('Internal Server Error');
     }
   },
+
+
 };
 
 
