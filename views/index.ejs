@@ -21,21 +21,26 @@
         <% } else { %>
           <ul class="list-group" type="none">
             <% notes.forEach(note=> { %>
-
+              
+                
               <li class="list-group-item">
-                <a href="/notes/noteInfo/<%= note.id %>"><strong>
-                    <%= note.title %>
-                  </strong></a>
-                <form action="/notes/edit/<%= note.id %>" method="GET" class="button-container">
-                  <button type="submit" class="edit-button">Edit</button>
-                </form>
-                <form action="/notes/delete/<%= note.id %>" method="POST" class="button-container">
-                  <button type="submit" class="delete-button">Delete</button>
-                </form>
-                <input type="checkbox" id="checkbox_<%= note.id %>" onchange="updateCheckboxState('<%= note.id %>')" <% if (note.completed) { %> checked <% } %>>
+                <div class="note-item">
+                  <a href="/notes/noteInfo/<%= note.id %>"><strong><%= note.title %></strong></a>
+                 
+                </div>
+              
+                <div class="button-group">
+                  <input type="checkbox" id="checkbox_<%= note.id %>" onchange="updateCheckboxState('<%= note.id %>')" <% if (note.completed) { %> checked <% } %>>
 
-
+                  <form action="/notes/edit/<%= note.id %>" method="GET" class="button-form">
+                    <button type="submit" class="edit-button">Edit</button>
+                  </form>
+                  <form action="/notes/delete/<%= note.id %>" method="POST" class="button-form">
+                    <button type="submit" class="delete-button">Delete</button>
+                  </form>
+                </div>
               </li>
+              
               <% }); %>
           </ul>
           <% } %>

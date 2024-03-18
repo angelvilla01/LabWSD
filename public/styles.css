@@ -227,3 +227,17 @@
     margin: 0;
   }
   
+.note-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.button-group {
+  display: flex;
+  
+}
+
+.button-form {
+  margin-left: 10px;
+}
