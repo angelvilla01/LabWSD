@@ -30,6 +30,7 @@
             </form>
             <form action="/notes/delete/<%= note.id %>" method="POST" style="display: inline;">
               <button type="submit" class="delete-button">Delete</button>
+              <input type="checkbox" name="delete-check" value="<%= note.id %>" style="margin-left: 10px;">
             </form>
           </li>
           <% }); %>

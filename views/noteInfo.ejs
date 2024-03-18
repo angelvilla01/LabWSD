@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>List of Notes</title>
   <link href="/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
-  <link rel="stylesheet" href="/styles.css" />º
+  <link rel="stylesheet" href="/styles.css" />
 
 
 </head>
@@ -15,7 +15,10 @@
       <h1>Note Details</h1>
       <h2><%= note.title %></h2>
       <p><%= note.content %></p>
-      <img src="/image-1710490601961-720429437.png" alt="Image" width="500" height="300" />
+      
+      <% if (note.image_id) { %>
+        <img src="/<%= note.image_id %>" alt="Image" width="300px" height="auto" />
+      <% } %>
     </div>
   </div>
 

@@ -1,67 +1,48 @@
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Create a New Note</title>
-    <link
-      href="/node_modules/bootstrap/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="/styles.css">
-   
-   
-  </head>
 
-  <body>
-    <div class="container">
-      <header class="text-center py-3">
-        <h1 class="h1">Create a New Note</h1>
-      </header>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Create a New Note</title>
+  <link href="/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="/styles.css">
 
-      <main class="px-3">
-        <div class="form-wrapper">
-          <form
-            class="form-wrapper"
-            action="/notes/new"
-            method="POST"
-            enctype="multipart/form-data"
-          >
-        
-            <div class="mb-3">
-              <input
-                type="text"
-                id="title"
-                name="title"
-                placeholder="Enter the title"
-                required
-                class="form-control"
-              />
-            </div>
 
-            <div class="mb-3">
-              <input
-                type="text"
-                id="content"
-                name="content"
-                placeholder="Enter the content"
-                required
-                class="form-control"
-              />
-            </div>
-            <label for="image" class="btn btn-primary">
-              <i class="bi bi-upload"></i> Select picture
-            </label>
-            <input id="image" type="file" name="image" accept="image/*" style="display: none;">
-            <button type="submit" class="btn btn-primary">Save Note</button>
-          </form>
+</head>
 
-        </div>
-      </main>
+<body>
+  <div class="container">
+    <header class="text-center py-3">
+      <h1 class="h1">Create a New Note</h1>
+    </header>
 
-      <footer></footer>
-    </div>
+    <main class="px-3">
+      <div class="form-wrapper">
+        <form class="form-wrapper" action="/notes/new" method="POST" enctype="multipart/form-data">
 
-    <script src="/node_modules/bootstrap/bootstrap.bundle.min.js"></script>
-  </body>
+          <div class="mb-3">
+            <input class="input" type="text" id="title" name="title" placeholder="Enter the title" required />
+          </div>
+
+          <div class="mb-3">
+            <input class="input" type="text" id="content" name="content" placeholder="Enter the content"
+              required />
+          </div>
+          <label for="image" class="btn btn-primary">
+            <i class="bi bi-upload"></i> Select picture
+          </label>
+          <input id="image" type="file" name="image" accept="image/*" style="display: none;">
+          <button type="submit" class="btn btn-primary">Save Note</button>
+        </form>
+
+      </div>
+    </main>
+
+    <footer></footer>
+  </div>
+
+  <script src="/node_modules/bootstrap/bootstrap.bundle.min.js"></script>
+</body>
+
 </html>
