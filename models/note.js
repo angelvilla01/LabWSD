@@ -16,9 +16,9 @@ export class NotesModel {
     });
   };
 
-  static createNote = async (title, content, filename) => {
+  static createNote = async (title, content, filename,list) => {
     return new Promise((resolve, reject) => {
-      db.run('INSERT INTO notes (title, content, image_id) VALUES (?, ?, ?)', [title, content,filename], (err) => {
+      db.run('INSERT INTO notes (title, content, image_id, list) VALUES (?, ?, ?, ?)', [title, content,filename,list], (err) => {
         if (err) {
           reject(err);
         } else {
@@ -40,9 +40,10 @@ export class NotesModel {
     });
   };
 
-  static updateNoteById = async (noteId, title, content, filename) => {
+  static updateNoteById = async (noteId, title, content, filename,list) => {
     return new Promise((resolve, reject) => {
-      db.run('UPDATE notes SET title = ?, content = ?, image_id = ? WHERE id = ?', [title, content,filename, noteId], (err) => {
+      console.log('list',list);
+      db.run('UPDATE notes SET title = ?, content = ?, image_id = ?, list = ? WHERE id = ?', [title, content,filename,list, noteId], (err) => {
         if (err) {
           reject(err);
         } else {

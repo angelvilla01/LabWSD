@@ -75,13 +75,15 @@
 
   }
 
+  
+
 
 
   .list-group-item strong {
     color: #007bff;
     flex: 1;
     font-size: 20px;
-    
+
   }
 
 
@@ -206,38 +208,35 @@
     margin-bottom: 10px;
     margin-right: 10px;
     margin-left: 10px;
-    background-color: #1c88fb;
-    color: #ffffff;
-    border: none;
     border-radius: 5px;
     padding: 10px 20px;
-    font-family: Arial, sans-serif;
-    font-size: 20px;
     cursor: pointer;
     transition: background-color 0.3s ease;
   }
 
- .list-group-item .button-container {
+
+  .list-group-item .button-container {
     display: flex;
     justify-content: flex-end;
-   gap: 10px;
+    gap: 10px;
   }
 
-  .edit-button, .delete-button {
+  .edit-button,
+  .delete-button {
     margin: 0;
   }
-  
-.note-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
 
-.button-group {
-  display: flex;
-  
-}
+  .note-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
 
-.button-form {
-  margin-left: 10px;
-}
+  .button-group {
+    display: flex;
+
+  }
+
+  .button-form {
+    margin-left: 10px;
+  }

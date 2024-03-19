@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -9,20 +10,33 @@
 
 
 </head>
+
 <body>
   <div class="container">
     <div class="text-center">
       <h1>Note Details</h1>
-      <h2><%= note.title %></h2>
-      <p><%= note.content %></p>
-      
+      <h2>
+        <%= note.title %>
+      </h2>
+      <p>
+        <%= note.content %>
+      </p>
+
+      <ul class="list-group">
+        <% if (Array.isArray(note.list)) { %>
+          <% note.list.forEach(item => { %>
+            <li class="list-group-item"><%= item %></li>
+          <% }); %>
+        <% } %>
+      </ul>
       <% if (note.image_id) { %>
         <img src="/<%= note.image_id %>" alt="Image" width="300px" height="auto" />
-      <% } %>
+        <% } %>
     </div>
   </div>
 
   <!-- Debes incluir estos scripts para que funcionen los dropdowns -->
   <script src="/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

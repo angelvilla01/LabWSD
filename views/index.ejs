@@ -21,8 +21,6 @@
         <% } else { %>
           <ul class="list-group" type="none">
             <% notes.forEach(note=> { %>
-              
-                
               <li class="list-group-item">
                 <div class="note-item">
                   <a href="/notes/noteInfo/<%= note.id %>"><strong><%= note.title %></strong></a>
@@ -30,7 +28,7 @@
                 </div>
               
                 <div class="button-group">
-                  <input type="checkbox" id="checkbox_<%= note.id %>" onchange="updateCheckboxState('<%= note.id %>')" <% if (note.completed) { %> checked <% } %>>
+                  <input class="checkbox" type="checkbox" id="checkbox_<%= note.id %>" onchange="updateCheckboxState('<%= note.id %>')" <% if (note.completed) { %> checked <% } %>>
 
                   <form action="/notes/edit/<%= note.id %>" method="GET" class="button-form">
                     <button type="submit" class="edit-button">Edit</button>
