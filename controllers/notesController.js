@@ -36,17 +36,17 @@ export const notesController = {
 
   createNote: async (req, res) => {
     try {
-      const { title, content, list} = req.body;
-      const file = req.file;
-
-      const filename = file ? file.filename : null;
-      await NotesModel.createNote(title, content, filename, list);
-      res.redirect('/');
+      console.log ('req.body', req.body);
+      const { title, content } = req.body;
+      console.log('content', content);
+      await NotesModel.createNote(title, content);
+      res.redirect('/notes');
     } catch (err) {
       console.error(err);
       res.status(500).send('Internal Server Error');
     }
   },
+  
 
 
   updateNote: async (req, res) => {
@@ -76,7 +76,7 @@ export const notesController = {
     try {
       const noteId = req.params.noteId;
       await NotesModel.deleteNoteById(noteId);
-      res.redirect('/');
+      res.redirect('/notes');
     } catch (err) {
       console.error(err);
       res.status(500).send('Internal Server Error');

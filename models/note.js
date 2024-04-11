@@ -16,9 +16,9 @@ export class NotesModel {
     });
   };
 
-  static createNote = async (title, content, filename,list) => {
+  static createNote = async (title,content) => {
     return new Promise((resolve, reject) => {
-      db.run('INSERT INTO notes (title, content, image_id, list) VALUES (?, ?, ?, ?)', [title, content,filename,list], (err) => {
+      db.run('INSERT INTO notes (title, content) VALUES (?, ?)', [title, content], (err) => {
         if (err) {
           reject(err);
         } else {

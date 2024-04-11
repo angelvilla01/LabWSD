@@ -18,20 +18,10 @@
       <h2>
         <%= note.title %>
       </h2>
-      <p>
-        <%= note.content %>
-      </p>
+      <div><%- note.content %></div>
+        
 
-      <ul class="list-group">
-        <% if (Array.isArray(note.list)) { %>
-          <% note.list.forEach(item => { %>
-            <li class="list-group-item"><%= item %></li>
-          <% }); %>
-        <% } %>
-      </ul>
-      <% if (note.image_id) { %>
-        <img src="/<%= note.image_id %>" alt="Image" width="300px" height="auto" />
-        <% } %>
+      
     </div>
   </div>
 
