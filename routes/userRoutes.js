@@ -10,6 +10,7 @@ userRouter.post('/register', userController.register);
 userRouter.post('/login', userController.login);
 userRouter.get('/logout', userController.logout);
 userRouter.post('/delete', userController.delete);
+userRouter.get('/management', (_req, res) => res.render('user-management'));
 
 export { userRouter };
 
