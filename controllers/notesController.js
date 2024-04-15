@@ -38,8 +38,10 @@ export const notesController = {
     try {
       console.log ('req.body', req.body);
       const { title, content } = req.body;
-      console.log('content', content);
-      await NotesModel.createNote(title, content);
+      const updatedContent = content.replace(/src="\.\.\/uploads\//g, 'src="/uploads/');
+
+      console.log('content', updatedContent);
+      await NotesModel.createNote(title, updatedContent);
       res.redirect('/notes');
     } catch (err) {
       console.error(err);

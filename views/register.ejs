@@ -17,6 +17,9 @@
       <div class="text-center">
         
         <h1 class="mt-5">Register</h1>
+        <% if (typeof errorMessage !== 'undefined') { %>
+          <div class="alert alert-danger" role="alert"><%= errorMessage %></div>
+          <% } %>
         <form action="/users/register" method="POST">
           <div class="form-group">
             <label for="username">Username</label>

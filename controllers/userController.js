@@ -9,6 +9,19 @@ export const userController = {
 
         const { username, password } = req.body;
         console.log(username, password);
+
+        UserModel.findByUsername(username, (err, existingUser) => {
+            if (err) {
+                console.error(err);
+                res.status(500).send('Internal Server Error');
+                return;
+            }
+
+            if (existingUser) {
+                res.render('register', { errorMessage: '[!] User already exists' });
+                return;
+            }
+
         bcrypt.hash(password, 10, (err, hashedPassword) => {
             if (err) throw err;
             UserModel.create(username, hashedPassword, (err) => {
@@ -17,27 +30,43 @@ export const userController = {
                 res.redirect('/notes');
             });
         });
+    });
     },
 
     login: async (req, res) => {
         const { username, password } = req.body;
         UserModel.findByUsername(username, (err, user) => {
-            if (err) throw err;
-            if (!user) {
-                res.render('login', { error: 'User not found' });
-            } else {
-                bcrypt.compare(password, user.password, (err, result) => {
-                    if (err) throw err;
-                    if (result) {
-                        req.session.user = user;
-                        res.redirect('/notes');
-                    } else {
-                        res.render('login', { error: 'Wrong password!' });
-                    }
-                });
+            if (err) {
+                console.error(err);
+                res.status(500).send('Internal Server Error');
+                return;
             }
+    
+            if (!user) {
+                res.render('login', { errorMessage: '[?] User not found' });
+                return;
+            }
+    
+           
+            bcrypt.compare(password, user.password, (err, result) => {
+                if (err) {
+                    console.error(err);
+                    res.status(500).send('Internal Server Error');
+                    return;
+                }
+    
+                if (result) {
+                   
+                    req.session.user = user;
+                    res.redirect('/notes');
+                } else {
+                    
+                    res.render('login', { errorMessage: '[!] Wrong password!' });
+                }
+            });
         });
     },
+    
 
     logout: async (req, res) => {
         req.session.destroy();
