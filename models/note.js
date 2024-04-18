@@ -4,6 +4,19 @@ import sqlite3 from 'sqlite3';
 const db = new sqlite3.Database('notes.db');
 
 export class NotesModel {
+
+  static getAllNotesOfUser = async (username) => {
+    return new Promise((resolve, reject) => {
+      db.all('SELECT * FROM notes WHERE username = ?', [username], (err, rows) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(rows);
+        }
+      });
+    });
+  }
+
   static getAllNotes = async () => {
     return new Promise((resolve, reject) => {
       db.all('SELECT * FROM notes', (err, rows) => {
@@ -16,9 +29,9 @@ export class NotesModel {
     });
   };
 
-  static createNote = async (title,content) => {
+  static createNote = async (title,content, username) => {
     return new Promise((resolve, reject) => {
-      db.run('INSERT INTO notes (title, content) VALUES (?, ?)', [title, content], (err) => {
+      db.run('INSERT INTO notes (title, content, username) VALUES (?, ?, ?)', [title, content, username], (err) => {
         if (err) {
           reject(err);
         } else {

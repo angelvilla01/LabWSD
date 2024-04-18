@@ -5,7 +5,7 @@ import { notesController } from '../controllers/notesController.js';
 import { requireAuth } from '../middlewares/auth.js';
 
 
-notesRouter.get('/', requireAuth, notesController.getAllNotes);
+notesRouter.get('/', requireAuth, notesController.getAllNotesFromUser);
 notesRouter.get('/new', requireAuth, (_req, res) => res.render('./new.ejs'));
 notesRouter.get('/noteInfo/:noteId', requireAuth, (req, res) => notesController.getNoteById(req, res, './noteInfo.ejs'));
 notesRouter.post('/new', requireAuth, notesController.createNote);

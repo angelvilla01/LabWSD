@@ -1,36 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <title>User Management</title>
     <meta charset="UTF-8" />
     <link href="/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="/styles.css" />
 </head>
+
 <body>
-<div class="container">
-    <h1 class="my-4">User and Notes Management</h1>
+    <div class="container">
+        <h1 class="my-4">User and Notes Management</h1>
 
-    <div class="row">
-        <div class="col-md-6">
-            <h2>Users</h2>
-            <div id="user-list"></div>
-            <div class="mt-2">
-                <button id="create-user" class="btn btn-primary">Create User</button>
-                <button id="delete-user" class="btn btn-primary">Delete User</button>
+        <div class="row">
+            <div class="col-md-6">
+                <h2>Users</h2>
+                <div id="user-list"></div>
+                <div class="mt-2">
+                    <form action="/users/allUsers" method="GET">
+                        <button id="show-users" class="btn btn-primary">Users Management</button>
+                    </form>
+                    
+                </div>
             </div>
-        </div>
 
-        <div class="col-md-6">
-            <h2>Notes</h2>
-            <div id="notes-list"></div>
-            <div class="mt-2">
-                <button id="create-note" class="btn btn-primary">Create Note</button>
-                <button id="delete-note" class="btn btn-primary">Delete Note</button>
+            <div class="col-md-6">
+                <h2>Notes</h2>
+                <div id="notes-list"></div>
+                <div class="mt-2">
+                <form action="/notes/" method="GET">
+                    <button id="show-notes" class="btn btn-primary">Notes Management</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<script src="/public/user-management.js"></script>
+    <script src="/public/user-management.js"></script>
 </body>
+
 </html>
