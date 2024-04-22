@@ -14,11 +14,11 @@
     <div class="text-center">
       <h1>List of Users</h1>
 
-      <% if (users.length === 0) { %>
+      <% if (usersWithoutAdmin.length === 0) { %>
         <p>No users available.</p>
       <% } else { %>
         <ul class="list-group" type="none">
-          <% users.forEach(user => { %>
+          <% usersWithoutAdmin.forEach(user => { %>
             <li class="list-group-item">
               <div class="user-item">
                 <strong><%= user.username %></strong>
@@ -29,6 +29,7 @@
                   <button type="submit" class="edit-button">Edit</button>
                 </form>
                 <form action="/users/delete/<%= user.id %>" method="POST" class="button-form">
+                  <input type="hidden" name="username" value="<%= user.username %>">
                   <button type="submit" class="delete-button">Delete</button>
                 </form>
               </div>

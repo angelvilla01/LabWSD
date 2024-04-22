@@ -53,10 +53,10 @@ export class NotesModel {
     });
   };
 
-  static updateNoteById = async (noteId, title, content, filename,list) => {
+  static updateNoteById = async (noteId, title, content, ) => {
     return new Promise((resolve, reject) => {
-      console.log('list',list);
-      db.run('UPDATE notes SET title = ?, content = ?, image_id = ?, list = ? WHERE id = ?', [title, content,filename,list, noteId], (err) => {
+      
+      db.run('UPDATE notes SET title = ?, content = ? WHERE id = ?', [title, content, noteId], (err) => {
         if (err) {
           reject(err);
         } else {
@@ -69,6 +69,19 @@ export class NotesModel {
   static deleteNoteById = async (noteId) => {
     return new Promise((resolve, reject) => {
       db.run('DELETE FROM notes WHERE id = ?', [noteId], (err) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve();
+        }
+      });
+    });
+  };
+
+  static deleteAllNotes = async (username) => {
+    console.log('username', username);
+    return new Promise((resolve, reject) => {
+      db.run('DELETE FROM notes WHERE username = ?', [username], (err) => {
         if (err) {
           reject(err);
         } else {

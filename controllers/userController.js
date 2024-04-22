@@ -3,6 +3,7 @@
 import bcrypt from 'bcrypt';
 import { v4 as uuidv4 } from 'uuid';
 import { UserModel } from '../models/user.js';
+import { notesController } from '../controllers/notesController.js';
 
 
 export const userController = {
@@ -11,7 +12,8 @@ export const userController = {
         try {
             const users = await UserModel.getAllUsers();
             console.log(users);
-            res.render('users', { users });
+            const usersWithoutAdmin = users.filter(user => user.username !== 'admin');
+            res.render('users', { usersWithoutAdmin });
         } catch (err) {
             console.error(err);
             res.status(500).send('Internal Server Error');
@@ -34,17 +36,17 @@ export const userController = {
                 return;
             }
 
-        bcrypt.hash(password, 10, (err, hashedPassword) => {
-            if (err) throw err;
-            UserModel.create(username, hashedPassword, (err) => {
+            bcrypt.hash(password, 10, (err, hashedPassword) => {
                 if (err) throw err;
-                
-                res.redirect('/users/allUsers');
+                UserModel.create(username, hashedPassword, (err) => {
+                    if (err) throw err;
+
+                    res.redirect('/users/allUsers');
+                });
             });
         });
-    });
     },
-        
+
 
 
     register: async (req, res) => {
@@ -64,16 +66,16 @@ export const userController = {
                 return;
             }
 
-        bcrypt.hash(password, 10, (err, hashedPassword) => {
-            if (err) throw err;
-            UserModel.create(username, hashedPassword, (err) => {
+            bcrypt.hash(password, 10, (err, hashedPassword) => {
                 if (err) throw err;
-                const userToken = uuidv4();
-                req.session.user = { username, userToken };
-                res.redirect('/notes');
+                UserModel.create(username, hashedPassword, (err) => {
+                    if (err) throw err;
+                    const userToken = uuidv4();
+                    req.session.user = { username, userToken };
+                    res.redirect('/notes');
+                });
             });
         });
-    });
     },
 
     login: async (req, res) => {
@@ -84,40 +86,39 @@ export const userController = {
                 res.status(500).send('Internal Server Error');
                 return;
             }
-    
+
             if (!user) {
                 res.render('login', { errorMessage: '[?] User not found' });
                 return;
             }
-    
-           
+
+
             bcrypt.compare(password, user.password, (err, result) => {
                 if (err) {
                     console.error(err);
                     res.status(500).send('Internal Server Error');
                     return;
                 }
-    
+
                 if (result) {
                     const userToken = uuidv4();
-                    req.session.user = {username, userToken};
-                    if (username == "admin")
-                    {
+                    req.session.user = { username, userToken };
+                    if (username == "admin") {
                         res.redirect('/users/management');
-                    } 
+                    }
                     else {
                         res.redirect('/notes');
                     }
-                   
-                    
+
+
                 } else {
-                    
+
                     res.render('login', { errorMessage: '[!] Wrong password!' });
                 }
             });
         });
     },
-    
+
 
     logout: async (req, res) => {
         req.session.destroy();
@@ -126,9 +127,13 @@ export const userController = {
 
     delete: async (req, res) => {
         const userId = req.params.userId;
+        const username = req.body.username;
+
+        notesController.deleteAllNotes(username), (err) => {
+            if (err) throw err;
+        }
         UserModel.deleteById(userId, (err) => {
             if (err) throw err;
-            req.session.destroy();
             res.redirect('/users/allUsers');
         });
     },
