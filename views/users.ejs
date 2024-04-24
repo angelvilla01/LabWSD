@@ -25,9 +25,7 @@
               </div>
 
               <div class="button-group">
-                <form action="/users/edit/<%= user.id %>" method="GET" class="button-form">
-                  <button type="submit" class="edit-button">Edit</button>
-                </form>
+              
                 <form action="/users/delete/<%= user.id %>" method="POST" class="button-form">
                   <input type="hidden" name="username" value="<%= user.username %>">
                   <button type="submit" class="delete-button">Delete</button>
@@ -46,7 +44,13 @@
       </form>
     </div>
   </div>
+  <button class="go-back-button" onclick="goBack()">Go Back</button>
 
+  <script>
+  function goBack() {
+    window.history.back();
+  }
+  </script>
   <script src="/node_modules/bootstrap/bootstrap.bundle.min.js"></script>
 </body>
 

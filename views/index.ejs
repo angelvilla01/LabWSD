@@ -54,6 +54,7 @@
 
 
 
+</script>
   <script src="/node_modules/bootstrap/bootstrap.bundle.min.js"></script>
   <script>
 
@@ -71,7 +72,15 @@
             }
         <% }); %>
     };
-</script>
+  </script>
+
+    <button class="go-back-button" onclick="goBack()">Go Back</button>
+
+    <script>
+    function goBack() {
+      window.history.back();
+    }
+    </script>
 
 
 

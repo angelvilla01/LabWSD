@@ -1,11 +1,11 @@
 // app.js
 import sqlite3 from 'sqlite3';
-import express, {json} from 'express';// Importa el controlador
+import express from 'express';// Importa el controlador
 import session from 'express-session';
 import multer from 'multer';
 import path from 'path';
 const app = express();
-const db = new sqlite3.Database('./db.sqlite');
+
 
 app.set('view engine', 'ejs'); 
 app.use(express.json());
