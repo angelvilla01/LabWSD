@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Collections</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="text-center">
+            <h1>Collections</h1>
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <div class="note-item">
+                        <a href="/collections/collectionInfo/1"><strong>Collection 1</strong></a>
+                        <div class="button-group" style="text-align: center;">
+                            <form action="/collections/delete/1" method="POST" class="button-form">
+                                <button type="submit" class="delete-button">Delete</button>
+                            </form>
+                            <form action="/collections/addNote/1" method="POST" class="button-form">
+                                <button type="submit" class="edit-button">Add Note</button>
+                            </form>
+                        </div>
+                    </div>
+                </li>
+               
+            </ul>
+            <button id="add-collection" class="btn-primary">Add Collection</button>
+            <form action="/users/logout" method="GET">
+                <button class="delete-button" type="submit">Log Out</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

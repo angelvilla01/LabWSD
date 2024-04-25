@@ -57,5 +57,12 @@ import { userRouter } from './routes/userRoutes.js';
 app.use('/users', userRouter);
 app.get('/', (_req, res) => res.redirect('/users'));
 
+//routes for collections
+app.get('/NoteCollections', (_req, res) => res.render('NoteCollections'));
+app.get('/collections', (_req, res) => res.render('collections'));
+
+
 const PORT = process.env.PORT || 4000
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
+
