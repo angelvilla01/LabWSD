@@ -28,6 +28,18 @@
 
   <!-- Debes incluir estos scripts para que funcionen los dropdowns -->
   <script src="/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+
+  <button class="go-back-button" onclick="goBack()">Go Back</button>
+  <form action="/notes/NoteCollections" method="GET" class="button-form">
+    <button type="submit" class="go-back-button">Home</button>
+  </form>
+  
+  <script>
+  function goBack() {
+    window.history.back();
+  }
+  </script>
 </body>
 
 </html>

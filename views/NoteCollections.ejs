@@ -8,14 +8,21 @@
 <body>
     <h1>Welcome!</h1>
     <div class="button-container">
-        <button class="big-button" onclick="location.href='/notes'">
+
+        <form action="/notes/" method="GET">
+            <button class="big-button" type="submit">
             <img src="/uploads/notes.png" alt="Notes">
             <span>Go to Notes</span>
-        </button>
-        <button class="big-button" onclick="location.href='/collections'">
+            </button>    
+        </form>
+
+        <form action="/notes/collections" method="GET">
+            <button class="big-button" type="submit">
             <img src="/uploads/collections.png" alt="Collections">
             <span>Go to Collections</span>
-        </button>
+            </button>    
+        </form>
+
     </div>
 </body>
 </html>

@@ -72,7 +72,7 @@ export const userController = {
                     if (err) throw err;
                     const userToken = uuidv4();
                     req.session.user = { username, userToken };
-                    res.redirect('/notes');
+                    res.redirect('/notes/NoteCollections');
                 });
             });
         });
@@ -107,7 +107,7 @@ export const userController = {
                         res.redirect('/users/management');
                     }
                     else {
-                        res.redirect('/notes');
+                        res.redirect('/notes/NoteCollections');
                     }
 
 

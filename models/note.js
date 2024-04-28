@@ -90,4 +90,16 @@ export class NotesModel {
       });
     });
   };
+
+  static getNotesInCollection = async (collectionId) => {
+    return new Promise((resolve, reject) => {
+      db.all('SELECT * FROM notes WHERE collection_id = ?', [collectionId], (err, rows) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(rows);
+        }
+      });
+    });
+  };
 }
