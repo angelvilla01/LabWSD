@@ -24,16 +24,18 @@
               <li class="list-group-item">
                 <div class="note-item">
                   <a href="/notes/noteInfo/<%= note.id %>"><strong><%= note.title %></strong></a>
-                  <p><strong>&nbsp;@<%= note.username %></strong></p>
                 </div>
-              
+
+                <div class="button-group">
+                  <form action="/notes/collections/deleteNote/<%= note.id %>/<%= collectionId %>" method="POST" class="button-form">
+                    <button type="submit" class="delete-button">Delete</button>
+                  </form>
                 </div>
               </li>
-              
               <% }); %>
           </ul>
           <% } %>
-
+        </div>
             <form action="/users/logout" method="GET">
               <button class="delete-button" type="submit">Log Out</button>
             </form>

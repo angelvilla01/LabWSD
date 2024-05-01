@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Friendship Management</title>
+  <link href="/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+
+<body>
+  <div class="container">
+    <div class="text-center">
+      <h1>Friendship Management</h1>
+
+
+      <!-- Enviar solicitud de amistad -->
+      <h2>Send friend request</h2>
+      <form action="/friendships/sendRequest" method="POST">
+        <input type="text" name="friend_username" placeholder="Username" required />
+        <button type="submit" class="btn-primary">Send request</button>
+      </form>
+
+      
+
+      <!-- Ver solicitudes de amistad pendientes -->
+      <h2>Pending requests</h2>
+      <% if (pendingRequests.length === 0) { %>
+      <p>No pending requests</p>
+      <% } else { %>
+      <ul class="list-group">
+        <% pendingRequests.forEach(request => { %>
+        <li class="list-group-item">
+          <p>Request from @<%= request.senderUsername %></p>
+          <form action="/friendships/acceptRequest/<%= request.sender_user %>/<%= request.user %>" method="POST">
+            <button type="submit" class="btn-primary">Accept</button>
+          </form>
+          <form action="/friendships/rejectRequest/<%= request.sender_user %>/<%= request.user %>" method="POST">
+            <button type="submit" class="delete-button">Deny</button>
+          </form>
+        </li>
+        <% }); %>
+      </ul>
+      <% } %>
+
+      <!-- Lista de amigos -->
+      <h2>Friends list</h2>
+      <% if (friends.length === 0) { %>
+      <p>No friends at the moment.</p>
+      <% } else { %>
+      <ul class="list-group">
+        <% friends.forEach(friend => { %>
+        <li class="list-group-item">
+          <p><%= friend.username %></p>
+          <form action="/friendships/removeFriend/<%= friend.id %>" method="POST">
+            <button type="submit" class="delete-button">Delete friend</button>
+          </form>
+        </li>
+        <% }); %>
+      </ul>
+      <% } %>
+    </div>
+
+    <form action="/users/logout" method="GET">
+      <button class="delete-button" type="submit">Log out</button>
+    </form>
+  </div>
+
+  <!-- Scripts -->
+  <script src="/node_modules/bootstrap/bootstrap.bundle.min.js"></script>
+
+  <!-- Botón de retroceso -->
+  <button class="go-back-button" onclick="goBack()">Go back</button>
+  <form action="/notes/NoteCollections" method="GET" class="button-form">
+    <button type="submit" class="go-back-button">Home</button>
+  </form>
+
+  <script>
+    function goBack() {
+      window.history.back();
+    }
+  </script>
+</body>
+
+</html>

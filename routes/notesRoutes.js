@@ -19,10 +19,11 @@ notesRouter.get('/NoteCollections', requireAuth, (_req, res) => res.render('Note
 notesRouter.get('/collections', requireAuth, collectionsController.getAllCollectionsFromUser);
 notesRouter.post('/collections/addNoteToCollection/:noteId/:collectionId', requireAuth, (req, res) => collectionsController.addNoteToCollection(req, res));
 notesRouter.get('/collections/showNotes/:collectionId', requireAuth, (req, res) => collectionsController.showNotesToAdd(req, res));
+
 notesRouter.get('/collections/addCollection', requireAuth, (_req, res) => res.render('createCollection'));
 notesRouter.post('/collections/addCollection', requireAuth, collectionsController.createCollection);
 notesRouter.get('/collections/notesInCollection/:collectionId', requireAuth, (req, res) => collectionsController.getNotesInCollection(req, res));
 notesRouter.post('/collections/delete/:collectionId', requireAuth, collectionsController.deleteCollection);
-
+notesRouter.post('/collections/deleteNote/:noteId/:collectionId', requireAuth, (req, res) => collectionsController.deleteNoteFromCollection(req, res));
 // Path: LabWSD/routes/notesRoutes.js
 

@@ -11,7 +11,7 @@ export class UserModel {
     this.password = password;
   }
 
-  static getAllUsers = async () => {
+  static getAllUsers = () => {
     return new Promise((resolve, reject) => {
       db.all('SELECT * FROM users', (err, rows) => {
         if (err) {
@@ -23,19 +23,51 @@ export class UserModel {
     });
   };
 
-  static create(username, password, callback) {
-    db.run('INSERT INTO users (username, password) VALUES (?, ?)', [username, password], callback);
-  }
+  static create = (username, password) => {
+    return new Promise((resolve, reject) => {
+      db.run('INSERT INTO users (username, password) VALUES (?, ?)', [username, password], (err) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve();
+        }
+      });
+    });
+  };
 
-  static findByUsername(username, callback) {
-    db.get('SELECT * FROM users WHERE username = ?', [username], (err, row) => {
-      if (err) return callback(err);
-      callback(null, row);
+  static findByUsername = (username) => {
+    return new Promise((resolve, reject) => {
+      db.get('SELECT * FROM users WHERE username = ?', [username], (err, row) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(row);
+        }
+      });
+    });
+  };
+
+  static deleteById = (id) => {
+    return new Promise((resolve, reject) => {
+      db.run('DELETE FROM users WHERE id = ?', [id], (err) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve();
+        }
+      });
+    });
+  };
+
+  static getUsernameById = (id) => {
+    return new Promise((resolve, reject) => {
+      db.get('SELECT username FROM users WHERE id = ?', [id], (err, row) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(row.username);
+        }
+      });
     });
   }
-
-  static deleteById(id, callback) {
-    db.run('DELETE FROM users WHERE id = ?', [id], callback);
-  }
 }
-

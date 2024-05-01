@@ -21,7 +21,7 @@ export const collectionsController = {
             res.status(500).send('Internal Server Error');
         }
     },
-    
+
     addNoteToCollection: async (req, res) => {
         console.log('addNoteToCollection');
         try {
@@ -39,10 +39,12 @@ export const collectionsController = {
         try {
             const user = req.session.user;
             const collectionId = req.params.collectionId;
-            const notes = await CollectionsModel.getNotesToAdd(user.username, collectionId);
-            console.log('collectionId', collectionId);
-            console.log('user', user);
-            console.log('notes', notes);
+            const allNotes = await NotesModel.getAllNotesOfUser(user.username);
+
+            const notesInCollection = await CollectionsModel.getNotesToAdd(collectionId);
+
+            const notes = allNotes.filter(note => !notesInCollection.find(n => n.note_id === note.id));
+
             res.render('./collectionNotes.ejs', { notes, collectionId });
         } catch (err) {
             console.error(err);
@@ -64,12 +66,15 @@ export const collectionsController = {
 
     getNotesInCollection: async (req, res) => {
         try {
-            console.log('getNotesInCollection');
             const collectionId = req.params.collectionId;
-            const notes = await NotesModel.getNotesInCollection(collectionId);
-            console.log('notes', notes);
-            console.log('collectionId', collectionId);
-            res.render('./showNotesInCollection.ejs', { notes });
+            const notesIds = await NotesModel.getNotesInCollection(collectionId);
+            const notes = [];
+            for (const id of notesIds) {
+                const note = await NotesModel.getNotesByIds(id);
+                notes.push(note);
+            }
+
+            res.render('./showNotesInCollection.ejs', { notes, collectionId });
         } catch (err) {
             console.error(err);
             res.status(500).send('Internal Server Error');
@@ -80,98 +85,27 @@ export const collectionsController = {
         try {
             const collectionId = req.params.collectionId;
             await CollectionsModel.deleteCollectionById(collectionId);
-            await CollectionsModel.updateNotesInCollection(collectionId);
+            //await CollectionsModel.updateNotesInCollection(collectionId);
             res.redirect('/notes/collections');
+        } catch (err) {
+            console.error(err);
+            res.status(500).send('Internal Server Error');
+        }
+    },
+
+    deleteNoteFromCollection: async (req, res) => {
+        try {
+            const collectionId = req.params.collectionId;
+            const noteId = req.params.noteId;
+            await CollectionsModel.deleteNoteFromCollection(collectionId, noteId);
+            res.redirect('/notes/collections/notesInCollection/' + collectionId);
         } catch (err) {
             console.error(err);
             res.status(500).send('Internal Server Error');
         }
     }
 
-    //   getAllNotes: async (_req, res) => {
-    //     try {
-    //       const notes = await NotesModel.getAllNotes();
-
-
-    //       notes.forEach(note => {
-    //         if (note.list)
-    //           note.list = note.list.split(',').map(item => item.trim());
-    //       });
-
-    //       /*  console.log(notes); */
-    //       res.render('./index.ejs', { notes });
-    //     } catch (err) {
-    //       console.error(err);
-    //       res.status(500).send('Internal Server Error');
-    //     }
-    //   },
-
-    //   getNoteById: async (req, res, view) => {
-    //     try {
-    //       const noteId = req.params.noteId;
-    //       const note = await NotesModel.getNoteById(noteId);
-    //       if (note.list)
-    //         note.list = note.list.split(',').map(item => item.trim());
-    //       res.render(view, { note });
-    //     } catch (err) {
-    //       console.error(err);
-    //       res.status(500).send('Internal Server Error');
-    //     }
-    //   },
-
-
-    //   createNote: async (req, res) => {
-    //     try {
-    //       console.log('req.body', req.body);
-    //       const { title, content } = req.body;
-    //       const updatedContent = content.replace(/src="\.\.\/uploads\//g, 'src="/uploads/');
-
-    //       console.log('content', updatedContent);
-    //       await NotesModel.createNote(title, updatedContent, req.session.user.username);
-    //       res.redirect('/notes');
-    //     } catch (err) {
-    //       console.error(err);
-    //       res.status(500).send('Internal Server Error');
-    //     }
-    //   },
-
-
-
-    //   updateNote: async (req, res) => {
-    //     try {
-    //       const noteId = req.params.noteId;
-    //       const { title, content } = req.body;
-
-    //       await NotesModel.updateNoteById(noteId, title, content);
-    //       res.redirect('/notes');
-    //     } catch (err) {
-    //       console.error(err);
-    //       res.status(500).send('Internal Server Error');
-    //     }
-    //   },
-
-    //   deleteNote: async (req, res) => {
-    //     try {
-    //       const noteId = req.params.noteId;
-    //       await NotesModel.deleteNoteById(noteId);
-    //       res.redirect('/notes');
-    //     } catch (err) {
-    //       console.error(err);
-    //       res.status(500).send('Internal Server Error');
-    //     }
-    //   },
-
-    //   deleteAllNotes: async (username) => {
-    //     try {
-
-    //       console.log('username', username);
-    //       await NotesModel.deleteAllNotes(username);
-
-    //     } catch (err) {
-    //       console.error(err);
-
-    //     }
-    //   },
+   
 
 
 };

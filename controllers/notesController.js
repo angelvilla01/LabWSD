@@ -44,12 +44,19 @@ export const notesController = {
     try {
       const noteId = req.params.noteId;
       const note = await NotesModel.getNoteById(noteId);
-      if (note.list)
-        note.list = note.list.split(',').map(item => item.trim());
       res.render(view, { note });
     } catch (err) {
       console.error(err);
       res.status(500).send('Internal Server Error');
+    }
+  },
+
+  getNotesByIds: async (notesIds) => {
+    try {
+      const note = await NotesModel.getNotesByIds(notesIds);
+      return note;
+    } catch (err) {
+      console.error(err);
     }
   },
 

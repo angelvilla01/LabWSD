@@ -57,7 +57,10 @@ import { userRouter } from './routes/userRoutes.js';
 app.use('/users', userRouter);
 app.get('/', (_req, res) => res.redirect('/users'));
 
-//routes for collections
+//routes for friendships
+
+import { friendshipRouter } from './routes/friendshipRoutes.js';
+app.use('/friendships', friendshipRouter);
 
 
 
