@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Shared Notes</title>
+    <!-- Asegúrate de incluir tu archivo CSS aquí -->
+    <link rel="stylesheet" href="/styles.css" />
+
+</head>
+<body>
+    <div style="display: flex; align-items: flex-start; gap: 10px;">
+        <!-- Botón de Home -->
+        <form action="/notes/NoteCollections" method="GET" style="display:inline">
+          <button class="go-home-button" type="submit">Home</button>
+        </form>
+    
+        <!-- Botón de retroceso -->
+        <button class="go-back-button" onclick="goBack()">Go back</button>
+      
+        <script>
+          function goBack() {
+            window.history.back();
+          }
+        </script>
+      </div>
+
+    <h1>Shared Notes</h1>
+
+    <ul class="list-group">
+        <li class="list-group-item">
+            <strong>Note 1</strong>
+       
+        </li>
+        <li class="list-group-item">
+            <strong>Note 2</strong>
+           
+        </li>
+        <li class="list-group-item">
+            <strong>Note 3</strong>
+            
+        </li>
+    </ul>
+  
+</body>
+</html>

@@ -12,6 +12,22 @@
 </head>
 
 <body>
+
+  <div style="display: flex; align-items: flex-start; gap: 10px;">
+    <!-- Botón de Home -->
+    <form action="/notes/NoteCollections" method="GET" style="display:inline">
+      <button class="go-home-button" type="submit">Home</button>
+    </form>
+
+    <!-- Botón de retroceso -->
+    <button class="go-back-button" onclick="goBack()">Go back</button>
+  
+    <script>
+      function goBack() {
+        window.history.back();
+      }
+    </script>
+  </div>
   <div class="container">
     <div class="text-center">
       <h1>List of Notes</h1>
@@ -36,6 +52,9 @@
                   <form action="/notes/delete/<%= note.id %>" method="POST" class="button-form">
                     <button type="submit" class="delete-button">Delete</button>
                   </form>
+                  <form action="/notes/shared/<%= note.id %>" method="POST" class="button-form">
+                    <button type="submit" class="share-button">Share</button>
+                </form>
                 </div>
               </li>
               
@@ -45,9 +64,10 @@
             <form action="/notes/new" method="GET">
               <button class="btn-primary" type="submit">Add Note</button>
             </form>
-            <form action="/users/logout" method="GET">
+            <form action="/users/logout" method="GET" style="display: inline">
               <button class="delete-button" type="submit">Log Out</button>
             </form>
+          
             
     </div>
   </div>
@@ -74,19 +94,6 @@
         <% }); %>
     };
   </script>
-
-    <button class="go-back-button" onclick="goBack()">Go Back</button>
-    <form action="/notes/NoteCollections" method="GET" class="button-form">
-      <button type="submit" class="go-back-button">Home</button>
-    </form>
-    
-    <script>
-    function goBack() {
-      window.history.back();
-    }
-    </script>
-
-
 
 </body>
 

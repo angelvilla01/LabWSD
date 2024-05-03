@@ -12,6 +12,21 @@
 </head>
 
 <body>
+  <div style="display: flex; align-items: flex-start; gap: 10px;">
+    <!-- Botón de Home -->
+    <form action="/notes/NoteCollections" method="GET" style="display:inline">
+      <button class="go-home-button" type="submit">Home</button>
+    </form>
+
+    <!-- Botón de retroceso -->
+    <button class="go-back-button" onclick="goBack()">Go back</button>
+  
+    <script>
+      function goBack() {
+        window.history.back();
+      }
+    </script>
+  </div>
   <div class="container">
     <div class="text-center">
       <h1>List of Notes in collection</h1>

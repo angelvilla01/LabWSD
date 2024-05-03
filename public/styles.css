@@ -125,7 +125,18 @@ h1 {
 }
 
 .delete-button:hover {
-  background-color: #c82333;
+  backg
+  round-color: #c82333;
+}
+.share-button {
+  background-color: #35dc6d;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .containerEdit {
@@ -220,19 +231,19 @@ h1 {
   margin-left: 10px;
 }
 /* estilos boton */
-.go-back-button {
-  position: fixed;
-  top: 10px;
-  left: 10px;
-  background-color: #007bff;
-  color: white;
+.go-back-button {  
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-right: 10px;
+  margin-left: 10px;
+  background-color: #1c88fb;
+  color: #ffffff;
   border: none;
-  padding: 10px 20px;
   border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 20px;
   cursor: pointer;
-  font-size: 18px;
-  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
-  transition: box-shadow 0.3s ease;
+  transition: background-color 0.3s ease;
 }
 
 .go-back-button:hover {
@@ -268,4 +279,53 @@ h1 {
   height: 90%; /* Aumenta este valor para hacer la imagen más grande */
   object-fit: cover;
   border-radius: 10px;
+}
+
+.go-home-button {
+  /* Copia los estilos de .go-back-button y ajusta según sea necesario */
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-right: 10px;
+  margin-left: 10px;
+  background-color: #1c88fb;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.form-label {
+  /* Estilos para las etiquetas de los campos del formulario */
+  color: #495057;
+  font-size: 1.5rem; /* Hacer el texto más grande */
+  font-weight: 500; /* Hacer el texto en negrita */
+  line-height: 1;
+  margin-bottom: 0.5rem;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.form-control {
+  /* Estilos para los campos de entrada del formulario */
+  display: block;
+  width: 100%;
+  height: calc(1.5em + 0.75rem + 2px);
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #495057;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+.friend-name, .request-name {
+  font-family: Arial, sans-serif;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+  font-size: 1.2em;
+  font-weight: bold;
 }

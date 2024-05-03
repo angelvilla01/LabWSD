@@ -63,7 +63,6 @@ import { friendshipRouter } from './routes/friendshipRoutes.js';
 app.use('/friendships', friendshipRouter);
 
 
-
 const PORT = process.env.PORT || 4000
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 
