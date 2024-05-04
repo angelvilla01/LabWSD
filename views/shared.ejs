@@ -7,6 +7,10 @@
 
 </head>
 <body>
+  <div class ="username-container">
+    <img src="/uploads/user.png" alt="User">
+    <p>Welcome, <%= username %></p>
+</div>
     <div style="display: flex; align-items: flex-start; gap: 10px;">
         <!-- Botón de Home -->
         <form action="/notes/NoteCollections" method="GET" style="display:inline">
@@ -26,23 +30,23 @@
       <div class="container">
         <div class="text-center">
           <h1>Shared Notes</h1>
-          <ul class="list-group">
-              <li class="list-group-item">
-                  <a href="/notes/1">
-                      <strong>Note 1</strong>
-                  </a>
-              </li>
-              <li class="list-group-item">
-                  <a href="/notes/2">
-                      <strong>Note 2</strong>
-                  </a>
-              </li>
-              <li class="list-group-item">
-                  <a href="/notes/3">
-                      <strong>Note 3</strong>
-                  </a>
-              </li>
-          </ul>
+          <% if (notes.length===0) { %>
+            <p>No notes available.</p>
+            <% } else { %>
+              <ul class="list-group" type="none">
+                <% notes.forEach(note=> { %>
+                  <li class="list-group-item">
+                    <form action="/notes/noteInfo/<%= note.id %>" method="GET">
+                      <button class="link-button" type="submit"><strong><%= note.title %> @<%= note.username %></strong></button>
+                    </form>
+                    
+                  
+
+                  </li>
+                  
+                  <% }); %>
+              </ul>
+              <% } %>
           <a class="back-link" href="/notes">Back to Notes</a>
         </div>
     </div>

@@ -1,7 +1,48 @@
 import { FriendshipModel } from "../models/friendship.js";
+import { ShareModel } from "../models/share.js";
 import { UserModel } from "../models/user.js";
 
 export const friendshipController = {
+
+
+    getFriendsToShareWith: async (req, res) => {
+        try {
+
+        const noteId = req.params.noteId;
+        const username = req.session.user.username;
+        const user = await UserModel.findByUsername(username);
+        const userId = user.id;
+        const friendsTable = await FriendshipModel.getAllFriendsOfUser(userId);
+        const friends = [];
+        for (const friend of friendsTable) {
+            const friendId = friend.user1 === userId ? friend.user2 : friend.user1;
+            const username = await UserModel.getUsernameById(friendId);
+            const user = await UserModel.findByUsername(username);
+            friends.push(user);
+        }
+
+        const sharedNotes = await ShareModel.getSharedNotes(noteId);
+        const filterFriends = []
+        for (const friend of friends) {
+            let shared = false;
+            for (const note of sharedNotes) {
+                if (note.shared_with === friend.id) {
+                    shared = true;
+                    break;
+                }
+            }
+            if (!shared) {
+                filterFriends.push(friend);
+            }
+        }
+        
+
+        res.render('noteSharing', { filterFriends, noteId });
+        } catch (err) {
+        console.error(err);
+        res.status(500).send('Internal Server Error');
+        }
+    },
 
     sendRequest: async (req, res) => {
         console.log('req.body', req.body);
@@ -15,6 +56,10 @@ export const friendshipController = {
 
         const friendship = await FriendshipModel.getAllFriendsOfUser(senderId);
         console.log('friendship', friendship);
+        if (senderId === receiverId) {
+            res.send('<script>alert("You cannot send a friend request to yourself"); window.location.href = "/friendships";</script>');
+            return;
+        }
         for (const friend of friendship) {
             if (friend.user1 === receiverId || friend.user2 === receiverId) {
                 res.send('<script>alert("You are already friends with this user"); window.location.href = "/friendships";</script>');
@@ -76,7 +121,7 @@ export const friendshipController = {
             friends.push(user);
         }
         console.log('requests', pendingRequests);
-        res.render('friendshipsManage', { pendingRequests, friends});
+        res.render('friendshipsManage', { pendingRequests, friends, username});
         } catch (err) {
         console.error(err);
         res.status(500).send('Internal Server Error');

@@ -3,6 +3,8 @@ export const notesRouter = express.Router();
 import { notesController } from '../controllers/notesController.js';
 import { collectionsController } from '../controllers/collectionsController.js';
 import { requireAuth } from '../middlewares/auth.js';
+import { friendshipController } from '../controllers/friendshipController.js';
+import {  shareController } from '../controllers/shareController.js';
 
 
 
@@ -25,6 +27,11 @@ notesRouter.post('/collections/addCollection', requireAuth, collectionsControlle
 notesRouter.get('/collections/notesInCollection/:collectionId', requireAuth, (req, res) => collectionsController.getNotesInCollection(req, res));
 notesRouter.post('/collections/delete/:collectionId', requireAuth, collectionsController.deleteCollection);
 notesRouter.post('/collections/deleteNote/:noteId/:collectionId', requireAuth, (req, res) => collectionsController.deleteNoteFromCollection(req, res));
-// Path: LabWSD/routes/notesRoutes.js
 
-notesRouter.get('/shared', (req, res) => res.render('shared'));
+//shared notes
+
+notesRouter.get('/shared/addUserToShareWith/:noteId', requireAuth, friendshipController.getFriendsToShareWith);
+notesRouter.post('/shared/addUserToShareWith/:noteId/:friendId', requireAuth, shareController.shareNote);
+notesRouter.get('/shared', requireAuth, shareController.getSharedNotesWithUser);
+
+//notesRouter.get('/shared',requireAuth, notesController.getSharedNotes);

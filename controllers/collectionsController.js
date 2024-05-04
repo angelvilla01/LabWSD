@@ -15,7 +15,7 @@ export const collectionsController = {
                 notes = await NotesModel.getAllNotesOfUser(username);
             }
 
-            res.render('./collections.ejs', { collections, notes });
+            res.render('./collections.ejs', { collections, notes, username });
         } catch (err) {
             console.error(err);
             res.status(500).send('Internal Server Error');

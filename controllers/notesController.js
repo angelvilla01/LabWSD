@@ -15,7 +15,7 @@ export const notesController = {
       }
 
 
-      res.render('./index.ejs', { notes });
+      res.render('./index.ejs', { notes, username });
     } catch (err) {
       console.error(err);
       res.status(500).send('Internal Server Error');

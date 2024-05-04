@@ -78,9 +78,9 @@ export const userController = {
                 const userToken = uuidv4();
                 req.session.user = { username, userToken };
                 if (username == "admin") {
-                    res.redirect('/users/management');
+                    res.render('user-management');
                 } else {
-                    res.redirect('/notes/NoteCollections');
+                    res.render('NoteCollections', { username });
                 }
             } else {
                 res.render('login', { errorMessage: '[!] Wrong password!' });
