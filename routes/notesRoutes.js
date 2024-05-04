@@ -26,5 +26,5 @@ notesRouter.get('/collections/notesInCollection/:collectionId', requireAuth, (re
 notesRouter.post('/collections/delete/:collectionId', requireAuth, collectionsController.deleteCollection);
 notesRouter.post('/collections/deleteNote/:noteId/:collectionId', requireAuth, (req, res) => collectionsController.deleteNoteFromCollection(req, res));
 // Path: LabWSD/routes/notesRoutes.js
-notesRouter.get('/shared', (req, res) => {res.render('shared');
-});
+
+notesRouter.get('/shared', (req, res) => res.render('shared'));
