@@ -7,6 +7,32 @@ const db = new sqlite3.Database('notes.db');
 
 export class ShareModel {
     
+
+
+    static shareCollectionWithUser = async (collectionId, sharedWith) => {
+        return new Promise((resolve, reject) => {
+            db.run('INSERT INTO SharedCollections (collection_id, shared_with) VALUES (?, ?)', [collectionId, sharedWith], (err) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve();
+                }
+            });
+        });
+    }
+
+    static deleteShareByNoteId = async (noteId) => {
+        return new Promise((resolve, reject) => {
+            db.run('DELETE FROM SharedNotes WHERE note_id = ?', [noteId], (err) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve();
+                }
+            });
+        });
+    }
+
     static getSharedNotes = async (noteId) => {
         return new Promise((resolve, reject) => {
             db.all('SELECT * FROM SharedNotes WHERE note_id = ?  ', [noteId], (err, rows) => {
@@ -31,6 +57,18 @@ export class ShareModel {
         });
     };
 
+    static getSharedCollections = async (collectionId) => {
+        return new Promise((resolve, reject) => {
+            db.all('SELECT * FROM SharedCollections WHERE collection_id = ?  ', [collectionId], (err, rows) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(rows);
+                }
+            });
+        });
+    }
+
     static getSharedNotesWithUser = async (userId) => {
         return new Promise((resolve, reject) => {
             db.all('SELECT note_id FROM SharedNotes WHERE shared_with = ? ', [userId], (err, rows) => {
@@ -42,5 +80,17 @@ export class ShareModel {
             });
         });
     };
-      
+    
+    static getSharedCollectionsWithUser = async (userId) => {
+        return new Promise((resolve, reject) => {
+            db.all('SELECT collection_id FROM SharedCollections WHERE shared_with = ? ', [userId], (err, row) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(row);
+                }
+            });
+        });
+    };
+    
     }

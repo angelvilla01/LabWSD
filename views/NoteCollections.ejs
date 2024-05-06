@@ -1,47 +1,45 @@
 <!DOCTYPE html>
 <html>
-<head>
+  <head>
     <title>Welcome</title>
-    <link rel="stylesheet" href="/styles.css">
-  
-</head>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
 
-
-<body>
-
-
-
-    <h1>Welcome!</h1>
-    <div class="button-container">
-
+    <div class="content-container">
+      <h1>Welcome!</h1>
+      <div class="button-container" style="margin-top: 20px">
         <form action="/notes/" method="GET">
-            <button class="big-button" type="submit">
-            <img src="/uploads/notes.png" alt="Notes">
+          <button class="big-button" type="submit">
+            <img src="/uploads/notes.png" alt="Notes" />
             <span>Go to Notes</span>
-            </button>    
+          </button>
         </form>
 
         <form action="/notes/collections" method="GET">
-            <button class="big-button" type="submit">
-            <img src="/uploads/collections.png" alt="Collections">
+          <button class="big-button" type="submit">
+            <img src="/uploads/collections.png" alt="Collections" />
             <span>Go to Collections</span>
-            </button>    
+          </button>
         </form>
 
         <form action="/friendships" method="GET">
-            <button class="big-button" type="submit">
-            <img src="/uploads/friends.png" alt="Friendships">
+          <button class="big-button" type="submit">
+            <img src="/uploads/friends.png" alt="Friendships" />
             <span>Go to Friends</span>
-            </button>    
+          </button>
         </form>
-        
+
         <form action="/notes/shared" method="GET">
-            <button class="big-button" type="submit">
-            <img src="/uploads/shared.png" alt="Shared">
+          <button class="big-button" type="submit">
+            <img src="/uploads/shared.png" alt="Shared" />
             <span>Go to Shared</span>
-            </button>    
+          </button>
         </form>
+      </div>
     </div>
-</body>
-</html>
+    <form action="/users/logout" method="GET">
+      <button class="delete-button" type="submit">Log Out</button>
+    </form>
+  </body>
 </html>

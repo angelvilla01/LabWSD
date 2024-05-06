@@ -1,10 +1,22 @@
 import { ShareModel } from "../models/share.js";
 import { NotesModel } from "../models/note.js";
 import { UserModel } from "../models/user.js";
+import { CollectionsModel } from "../models/collections.js";
+import { FriendshipModel } from "../models/friendship.js";
 
 export const shareController = {
     
+        shareCollection: async (req, res) => {
+            const { collectionId, friendId } = req.params;
         
+            try {
+                await ShareModel.shareCollectionWithUser(collectionId, friendId);
+                res.redirect('/notes/collections');
+            } catch (err) {
+                console.error(err);
+                res.status(500).send('Internal Server Error');
+            }
+        },
 
         shareNote: async (req, res) => {
             console.log('req.body', req.params);
@@ -25,14 +37,28 @@ export const shareController = {
                 const user = await UserModel.findByUsername(username);
                 const userId = user.id;
                 const sharedNotesIds = await ShareModel.getSharedNotesWithUser(userId);
-                console.log('sharedNotesIds', sharedNotesIds);
+               
                 //const notesIds = sharedNotes.map(note => note.note_id);
                 const notes = [];
                 for (const noteId of sharedNotesIds) {
                     const note = await NotesModel.getNotesByIds(noteId.note_id);
                     notes.push(note);
                 }
-                res.render('shared', { notes, username });
+               
+                const sharedCollectionsIds = await ShareModel.getSharedCollectionsWithUser(userId);
+
+                const collections = [];
+                for (const collectionId of sharedCollectionsIds) {
+                    const collection = await CollectionsModel.getCollectionsById(collectionId.collection_id);
+                    collections.push(collection);
+                }
+
+                console.log('notes', notes);
+                console.log('collections', collections);
+                //const collections = await CollectionsModel.getAllCollectionsOfUser(username);
+
+
+                res.render('shared', { notes, username, collections });
             } catch (err) {
                 console.error(err);
                 res.status(500).send('Internal Server Error');

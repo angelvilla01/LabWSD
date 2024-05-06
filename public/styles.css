@@ -274,8 +274,8 @@ h1 {
   color: black;
 }
 .big-button img {
-  width: 100%;
-  height: 90%; /* Aumenta este valor para hacer la imagen más grande */
+  width: 70%;
+  height: 70%; /* Aumenta este valor para hacer la imagen más grande */
   object-fit: cover;
   border-radius: 10px;
 }
@@ -365,5 +365,13 @@ h1 {
 .username-container img {
   width: 30px;
   margin-right: 10px;
+}
+
+.content-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 70vh;
 }
 

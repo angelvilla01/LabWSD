@@ -1,4 +1,5 @@
 import { NotesModel } from '../models/note.js';
+import { ShareModel } from '../models/share.js';
 
 
 export const notesController = {
@@ -95,6 +96,8 @@ export const notesController = {
     try {
       const noteId = req.params.noteId;
       await NotesModel.deleteNoteById(noteId);
+      await NotesModel.deleteNoteFromCollections(noteId);
+      await ShareModel.deleteShareByNoteId(noteId);
       res.redirect('/notes');
     } catch (err) {
       console.error(err);

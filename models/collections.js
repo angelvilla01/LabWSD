@@ -5,7 +5,21 @@ const db = new sqlite3.Database('notes.db');
 
 export class CollectionsModel {
 
+
+    static getCollectionsById = async (collectionId) => {
+        return new Promise((resolve, reject) => {
+            db.get('SELECT * FROM collections WHERE id = ?', [collectionId], (err, row) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(row);
+                }
+            });
+        });
+    }
+
     static getAllCollectionsOfUser = async (username) => {
+        console.log('username', username);
         return new Promise((resolve, reject) => {
             db.all('SELECT * FROM collections WHERE username = ?', [username], (err, rows) => {
                 if (err) {

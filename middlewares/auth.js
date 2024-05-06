@@ -19,3 +19,13 @@ const requireAdminAuth = (req, res, next) => {
 }
 
 export { requireAdminAuth };
+
+const backHomeAdmin = (req, res, next) => {
+    if (req.session.user.username === "admin") {
+        res.render('user-management');
+    } else {
+        next();
+    }
+}
+
+export { backHomeAdmin };

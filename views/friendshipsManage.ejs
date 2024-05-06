@@ -21,7 +21,7 @@
   
 
   <form action="/notes/NoteCollections" method="GET" style="display:inline">
-    <button class="go-home-button" type="submit">Home</button>
+    <button class="go-back-button" type="submit">Home</button>
   </form>
   <button class="go-back-button" onclick="goBack()">Go back</button>
   <script>
@@ -58,7 +58,7 @@
           <li class="list-group-item">
             <p class="request-name"><%= request.senderUsername%></p>
             <form action="/friendships/acceptRequest/<%= request.sender_user %>/<%= request.user %>" method="POST" >
-              <button type="submit" class="accept-button">Accept</button>
+              <button type="submit" class="btn-primary">Accept</button>
             </form>
           </li>
           <% }); %>

@@ -16,7 +16,7 @@
   <div style="display: flex; align-items: flex-start; gap: 10px;">
     <!-- Botón de Home -->
     <form action="/notes/NoteCollections" method="GET" style="display:inline">
-      <button class="go-home-button" type="submit">Home</button>
+      <button class="go-back-button" type="submit">Home</button>
     </form>
 
     <!-- Botón de retroceso -->
@@ -44,7 +44,7 @@
 
                 <div class="button-group">
                   <form action="/notes/collections/deleteNote/<%= note.id %>/<%= collectionId %>" method="POST" class="button-form">
-                    <button type="submit" class="delete-button">Delete</button>
+                    <button type="submit" class="delete-button">Delete from collection</button>
                   </form>
                 </div>
               </li>
@@ -66,15 +66,7 @@
   <script src="/node_modules/bootstrap/bootstrap.bundle.min.js"></script>
 
 
-    <button class="go-back-button" onclick="goBack()">Go Back</button>
-    <form action="/notes/NoteCollections" method="GET" class="button-form">
-      <button type="submit" class="go-back-button">Home</button>
-    </form>
-    
-    <script>
-    function goBack() {
-      window.history.back();
-    }
+   
     </script>
 
 

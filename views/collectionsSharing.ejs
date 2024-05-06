@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>List of Collections</title>
+  <title>List of Friends to Share with</title>
   <link href="/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
   <link rel="stylesheet" href="/styles.css" />
 
@@ -12,10 +12,7 @@
 </head>
 
 <body>
-  <div class ="username-container">
-    <img src="/uploads/user.png" alt="User">
-    <p>Welcome, <%= username %></p>
-</div>
+
   <div style="display: flex; align-items: flex-start; gap: 10px;">
     <!-- Botón de Home -->
     <form action="/notes/NoteCollections" method="GET" style="display:inline">
@@ -33,46 +30,39 @@
   </div>
   <div class="container">
     <div class="text-center">
-      <h1>List of Collections</h1>
+      <h1>Select a friend to share the collection</h1>
 
-      <% if (collections.length===0) { %>
-        <p>No collections available.</p>
+      <% if (filterFriends.length===0) { %>
+        <p>No friends available.</p>
         <% } else { %>
           <ul class="list-group" type="none">
-            <% collections.forEach(collection=> { %>
+            <% filterFriends.forEach(friend=> { %>
               <li class="list-group-item">
                 <div class="note-item">
-                  <a href="/notes/collections/notesInCollection/<%= collection.id %>"><strong><%= collection.name %></strong></a>
-                  <p><strong>&nbsp;@<%= collection.username %></strong></p>
+                  <p><strong><%= friend.username %></strong></p>
                 </div>
               
                 <div class="button-group">
-
-                  <form action="/notes/collections/showNotes/<%= collection.id %>" method="GET" class="button-form">
-                    <button type="submit" class="edit-button">Add note</button>
-                  </form>
-                  <form action="/notes/collections/delete/<%= collection.id %>" method="POST" class="button-form">
-                    <button type="submit" class="delete-button">Delete</button>
-                  </form>
-                  <form action="/notes/collections/shared/addUserToShareWith/<%= collection.id %>" method="GET" class="button-form">
+                
+                  <form action="/notes/collections/shared/addUserToShareWith/<%= collectionId %>/<%= friend.id %>" method="POST" class="button-form">
                     <button type="submit" class="share-button">Share</button>
-                </form>
+                  </form>
+
                 </div>
               </li>
               
               <% }); %>
           </ul>
           <% } %>
-            <form action="/notes/collections/addCollection" method="GET">
-              <button class="btn-primary" type="submit">Add Collection</button>
-            </form>
-            <form action="/users/logout" method="GET" style="display: inline">
+
+            <form action="/users/logout" method="GET">
               <button class="delete-button" type="submit">Log Out</button>
             </form>
-           
     </div>
   </div>
 
 </script>
 <script src="/node_modules/bootstrap/bootstrap.bundle.min.js"></script>
-  
+
+</body>
+</html>

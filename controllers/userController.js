@@ -56,7 +56,7 @@ export const userController = {
             await UserModel.create(username, hashedPassword);
             const userToken = uuidv4();
             req.session.user = { username, userToken };
-            res.redirect('/notes/NoteCollections');
+            res.render('NoteCollections', { username });
         } catch (err) {
             console.error(err);
             res.status(500).send('Internal Server Error');

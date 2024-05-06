@@ -5,6 +5,19 @@ const db = new sqlite3.Database('notes.db');
 
 export class NotesModel {
 
+  static deleteNoteFromCollections = async (noteId) => {
+    return new Promise((resolve, reject) => {
+      db.run('DELETE FROM note_collections WHERE note_id = ?', [noteId], (err) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve();
+        }
+      });
+    }
+    );
+  };
+
   static getAllNotesOfUser = async (username) => {
     return new Promise((resolve, reject) => {
       db.all('SELECT * FROM notes WHERE username = ?', [username], (err, rows) => {

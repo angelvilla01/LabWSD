@@ -14,7 +14,7 @@
     <div style="display: flex; align-items: flex-start; gap: 10px;">
         <!-- Botón de Home -->
         <form action="/notes/NoteCollections" method="GET" style="display:inline">
-          <button class="go-home-button" type="submit">Home</button>
+          <button class="go-back-button" type="submit">Home</button>
         </form>
     
         <!-- Botón de retroceso -->
@@ -39,15 +39,31 @@
                     <form action="/notes/noteInfo/<%= note.id %>" method="GET">
                       <button class="link-button" type="submit"><strong><%= note.title %> @<%= note.username %></strong></button>
                     </form>
-                    
-                  
-
                   </li>
                   
                   <% }); %>
               </ul>
               <% } %>
+
+              <h1>Shared Collections</h1>
+              <% if (collections.length===0) { %>
+                <p>No collections available.</p>
+                <% } else { %>
+                  <ul class="list-group" type="none">
+                    <% collections.forEach(collection=> { %>
+                      <li class="list-group-item">
+                        <form action="/notes/collections/notesInCollection/<%= collection.id %>" method="GET">
+                          <button class="link-button" type="submit"><strong><%= collection.name %> @<%= collection.username %></strong></button>
+                        </form>
+                      </li>
+                      
+                      <% }); %>
+                  </ul>
+                  <% } %>
           <a class="back-link" href="/notes">Back to Notes</a>
+          <form action="/users/logout" method="GET" style="display: inline">
+            <button class="delete-button" type="submit">Log Out</button>
+          </form>
         </div>
     </div>
 </body>

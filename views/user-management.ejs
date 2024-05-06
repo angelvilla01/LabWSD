@@ -14,7 +14,7 @@
        <div style="display: flex; align-items: flex-start; gap: 10px;">
             <!-- Botón de Home -->
             <form action="/notes/NoteCollections" method="GET" style="display:inline">
-            <button class="go-home-button" type="submit">Home</button>
+            <button class="go-back-button" type="submit">Home</button>
             </form>
         
             <!-- Botón de retroceso -->
@@ -44,6 +44,24 @@
                 <div class="mt-2">
                 <form action="/notes/" method="GET">
                     <button id="show-notes" class="btn btn-primary">Notes Management</button>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <h2>Collections</h2>
+                <div id="notes-list"></div>
+                <div class="mt-2">
+                <form action="/notes/" method="GET">
+                    <button id="show-notes" class="btn btn-primary">Collections Management</button>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <h2>Relationships</h2>
+                <div id="notes-list"></div>
+                <div class="mt-2">
+                <form action="/notes/" method="GET">
+                    <button id="show-notes" class="btn btn-primary">Relationships Management</button>
                 </div>
             </div>
         </div>
