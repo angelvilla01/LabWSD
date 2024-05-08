@@ -11,6 +11,7 @@
 <body>
 
 
+
        <div style="display: flex; align-items: flex-start; gap: 10px;">
             <!-- Botón de Home -->
             <form action="/notes/NoteCollections" method="GET" style="display:inline">
@@ -44,15 +45,17 @@
                 <div class="mt-2">
                 <form action="/notes/" method="GET">
                     <button id="show-notes" class="btn btn-primary">Notes Management</button>
+                </form>
                 </div>
             </div>
 
             <div class="col-md-6">
                 <h2>Collections</h2>
                 <div id="notes-list"></div>
-                <div class="mt-2">
-                <form action="/notes/" method="GET">
-                    <button id="show-notes" class="btn btn-primary">Collections Management</button>
+                <class="mt-2">
+                <form action="/notes/collections" method="GET">
+                    <button id="show-collections" class="btn btn-primary">Collections Management</button>
+                </form>
                 </div>
             </div>
 
@@ -60,11 +63,15 @@
                 <h2>Relationships</h2>
                 <div id="notes-list"></div>
                 <div class="mt-2">
-                <form action="/notes/" method="GET">
+                <form action="/users/allUsersFromRelationships" method="GET">
                     <button id="show-notes" class="btn btn-primary">Relationships Management</button>
+                </form>
                 </div>
             </div>
         </div>
+        <form action="/users/logout" method="GET">
+            <button class="delete-button" type="submit">Log Out</button>
+        </form>
   
     
 

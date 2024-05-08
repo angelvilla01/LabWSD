@@ -58,7 +58,7 @@
                     <button type="submit" class="delete-button">Delete</button>
                   </form>
                   <form action="/notes/shared/addUserToShareWith/<%= note.id %>" method="GET" class="button-form">
-                    <button type="submit" class="share-button">Share</button>
+                    <button id="share-button" type="submit" style="<%= shareBtnVisible ? '' : 'display: none;' %>" class="share-button">Share</button> 
                 </form>
                 </div>
               </li>

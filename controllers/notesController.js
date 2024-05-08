@@ -2,21 +2,26 @@ import { NotesModel } from '../models/note.js';
 import { ShareModel } from '../models/share.js';
 
 
+
 export const notesController = {
 
   getAllNotesFromUser: async (req, res) => {
     try {
       const username = req.session.user.username;
       let notes = [];
+      let shareBtnVisible = true;
       if (username === 'admin') 
       {
+         shareBtnVisible = false;
          notes = await NotesModel.getAllNotes();
       } else {
          notes = await NotesModel.getAllNotesOfUser(username);
       }
+      console.log(notes);
+      console.log(username);
 
 
-      res.render('./index.ejs', { notes, username });
+      res.render('./index.ejs', { notes, username, shareBtnVisible });
     } catch (err) {
       console.error(err);
       res.status(500).send('Internal Server Error');
@@ -64,12 +69,12 @@ export const notesController = {
 
   createNote: async (req, res) => {
     try {
-      console.log('req.body', req.body);
+      
       const { title, content } = req.body;
       const updatedContent = content.replace(/src="\.\.\/uploads\//g, 'src="/uploads/');
 
-      console.log('content', updatedContent);
       await NotesModel.createNote(title, updatedContent, req.session.user.username);
+      console.log(title, updatedContent, req.session.user.username);
       res.redirect('/notes');
     } catch (err) {
       console.error(err);
@@ -108,7 +113,11 @@ export const notesController = {
   deleteAllNotes: async (username) => {
     try {
       
-      console.log('username', username);
+
+      const notes = await NotesModel.getAllNotesOfUser(username);
+      for (const noteId of notes) {
+        await ShareModel.deleteShareByNoteId(noteId.id);
+      }
       await NotesModel.deleteAllNotes(username);
      
     } catch (err) {

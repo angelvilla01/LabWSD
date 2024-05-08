@@ -11,11 +11,6 @@
   
 <body>
 
-  <div class ="username-container">
-    <img src="/uploads/user.png" alt="User">
-    <p>Welcome, <%= username %></p>
-</div>
-
 <div style="display: flex; align-items: flex-start; gap: 10px;">
   <!-- BotÃ³n de retroceso -->
   
@@ -38,41 +33,8 @@
       <h1>Friendship Management</h1>
 
 
-      <!-- Enviar solicitud de amistad -->
-      <h2>Send friend request</h2>
-      <form action="/friendships/sendRequest" method="POST">
-        <input type="text" name="friend_username" placeholder="Username" required class="form-label" />
-        <button type="submit" class="btn-primary">Send request</button>
-      </form>
-
       
-
-      <!-- Ver solicitudes de amistad pendientes -->
-  
-      <h2>Pending requests</h2>
-      <% if (pendingRequests.length === 0) { %>
-      <p>No pending requests at the moment.</p>
-      <% } else { %>
-        
-      <ul class="list-group">
-          <% pendingRequests.forEach(request => { %>
-          <li class="list-group-item">
-            
-            <p class="request-name"><%= request.senderUsername%></p>
-            <div class="button-group">
-              <form action="/friendships/acceptRequest/<%= request.senderId %>/<%= request.user %>" method="POST" >
-                <button type="submit" class="accept-button">Accept</button>
-              </form>
-              <form action="/friendships/rejectRequest/<%= request.senderId %>/<%= request.user %>" method="POST" >
-                <button type="submit" class="reject-button">Reject</button>
-              </form>
-            </div>
-          </li>
-          <% }); %>
-      </ul>
-      <% } %>
-    <!-- Lista de amigos -->
-    <h2>Friends list</h2>
+    <h2>Friends list from user</h2>
     <% if (friends.length === 0) { %>
     <p>No friends at the moment.</p>
     <% } else { %>
@@ -80,7 +42,7 @@
         <% friends.forEach(friend => { %>
         <li class="list-group-item">
           <p class="friend-name"><%= friend.username %></p>
-          <form action="/friendships/removeFriend/<%= friend.id %>" method="POST" >
+          <form action="/friendships/removeFriend/<%= friend.id %>/<%= userId %>" method="POST" >
             <button type="submit" class="delete-button">Delete friend</button>
           </form>
         </li>

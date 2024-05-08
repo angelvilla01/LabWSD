@@ -1,8 +1,29 @@
+import session from "express-session";
 import { FriendshipModel } from "../models/friendship.js";
 import { ShareModel } from "../models/share.js";
 import { UserModel } from "../models/user.js";
 
 export const friendshipController = {
+
+    getAllFriendsOfUser : async (req, res) => {
+        try {
+            const userId = req.params.userId;
+            const friendsTable = await FriendshipModel.getAllFriendsOfUser(userId);
+            const friends = [];
+            for (const friend of friendsTable) {
+                const friendId = friend.user1 == userId ? friend.user2 : friend.user1;
+                const username = await UserModel.getUsernameById(friendId);
+                const user = await UserModel.findByUsername(username);
+                friends.push(user);
+            }
+            console.log('friends', friends);
+            res.render('friends_admin', { friends, userId });
+        } catch (err) {
+            console.error(err);
+            res.status(500).send('Internal Server Error');
+        }
+    }
+    ,
 
     getFriendsToShareWithCollection: async (req, res) => {
         try {
@@ -13,6 +34,7 @@ export const friendshipController = {
             const friendsTable = await FriendshipModel.getAllFriendsOfUser(userId);
             const friends = [];
             for (const friend of friendsTable) {
+                console.log('friend', friend);
                 const friendId = friend.user1 === userId ? friend.user2 : friend.user1;
                 const username = await UserModel.getUsernameById(friendId);
                 const user = await UserModel.findByUsername(username);
@@ -84,6 +106,10 @@ export const friendshipController = {
     sendRequest: async (req, res) => {
         console.log('req.body', req.body);
         const receiver = req.body.friend_username;
+        if (receiver === "admin") {
+            res.send('<script>alert("You cannot send a friend request to the admin"); window.location.href = "/friendships";</script>');
+            return;
+        }
         console.log('receiver', receiver);
         const sender = req.session.user.username;
         const senderUser = await UserModel.findByUsername(sender);
@@ -93,6 +119,9 @@ export const friendshipController = {
 
         const friendship = await FriendshipModel.getAllFriendsOfUser(senderId);
         console.log('friendship', friendship);
+
+        
+
         if (senderId === receiverId) {
             res.send('<script>alert("You cannot send a friend request to yourself"); window.location.href = "/friendships";</script>');
             return;
@@ -157,6 +186,10 @@ export const friendshipController = {
             //const senderUsername = await UserModel.getUsernameById(userId);
             console.log('userId', userId);
             const pendingRequests = await FriendshipModel.getAllRequestsOfUser(userId);
+            console.log('pendingRequestsNotifications', pendingRequests);
+            //ahora que tengo los pendingRequestsNotifications, en la tabla friendships tengo que sacar
+            //de esas filas que tengo, donde coincidan user1 y user2 y además el status sea pending
+
 
             const friendsTable = await FriendshipModel.getAllFriendsOfUser(userId);
             console.log('friendsTable', friendsTable);
@@ -190,15 +223,28 @@ export const friendshipController = {
 
     deleteFriend: async (req, res) => {
         console.log('req.params', req.params);
+        console.log(req.params)
         const friendId = req.params.friendId;
         console.log('friendId', friendId);
-        const username = req.session.user.username;
+        
+        let username
+        const session_username = req.session.user.username;
+        if (session_username === 'admin') {
+            username = await UserModel.getUsernameById(req.params.userId);
+        } else {
+            username = req.session.user.username;
+        }
         const user = await UserModel.findByUsername(username);
         const userId = user.id;
 
         try {
             await FriendshipModel.deleteFriend(userId, friendId);
-            res.redirect('/friendships');
+            if (session_username === 'admin') {
+                res.redirect('/users/allUsersFromRelationships');
+            } else {
+                res.redirect('/friendships');
+            }
+            
         } catch (err) {
             console.error(err);
             res.status(500).send('Internal Server Error');

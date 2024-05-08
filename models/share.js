@@ -9,6 +9,18 @@ export class ShareModel {
     
 
 
+    static deleteByUserId = async (userId) => {
+        return new Promise((resolve, reject) => {
+            db.run('DELETE FROM SharedNotes WHERE shared_with = ?', [userId], (err) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve();
+                }
+            });
+        });
+    }
+
     static shareCollectionWithUser = async (collectionId, sharedWith) => {
         return new Promise((resolve, reject) => {
             db.run('INSERT INTO SharedCollections (collection_id, shared_with) VALUES (?, ?)', [collectionId, sharedWith], (err) => {
@@ -32,6 +44,19 @@ export class ShareModel {
             });
         });
     }
+
+    static deleteShareByCollectionId = async (collectionId) => {
+        return new Promise((resolve, reject) => {
+            db.run('DELETE FROM SharedCollections WHERE collection_id = ?', [collectionId], (err) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve();
+                }
+            });
+        }
+        );
+    };
 
     static getSharedNotes = async (noteId) => {
         return new Promise((resolve, reject) => {

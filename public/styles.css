@@ -275,7 +275,7 @@ h1 {
 }
 .big-button img {
   width: 70%;
-  height: 70%; /* Aumenta este valor para hacer la imagen más grande */
+  height: 70%; 
   object-fit: cover;
   border-radius: 10px;
 }
@@ -295,7 +295,10 @@ h1 {
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
-
+.go-home-button:hover {
+  background-color: #0056b3;
+  box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
+}
 .form-label {
   /* Estilos para las etiquetas de los campos del formulario */
   color: #495057;
@@ -366,6 +369,45 @@ h1 {
   width: 30px;
   margin-right: 10px;
 }
+
+.accept-button {
+margin-top: 10px;
+margin-bottom: 10px;
+margin-right: 10px;
+margin-left: 10px;
+background-color: #4CAF50;
+color: #ffffff;
+border: none;
+border-radius: 5px;
+padding: 10px 20px;
+font-size: 20px;
+cursor: pointer;
+transition: background-color 0.3s ease;
+}
+
+.accept-button:hover {
+  background-color: #45a049;
+}  
+
+.reject-button {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-right: 10px;
+  margin-left: 10px;
+  background-color: #dc3545;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  }
+  
+  .reject-button:hover {
+    background-color: #dc3545;
+  }  
+
 
 .content-container {
   display: flex;

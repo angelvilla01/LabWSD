@@ -4,19 +4,37 @@ import bcrypt from 'bcrypt';
 import { v4 as uuidv4 } from 'uuid';
 import { UserModel } from '../models/user.js';
 import { notesController } from '../controllers/notesController.js';
+import { ShareModel } from '../models/share.js';
+import { NotesModel } from '../models/note.js';
+import { CollectionsModel } from '../models/collections.js';
+import { FriendshipModel } from '../models/friendship.js';
 
 export const userController = {
+
+    getAllUsersFromRelationships: async (req, res) => {
+        try {
+            const session_username = req.session.user.username;
+            const users = await UserModel.getAllUsers();
+            const usersWithoutAdmin = users.filter(user => user.username !== 'admin');
+            res.render('relationships_admin', { usersWithoutAdmin, session_username });
+        } catch (err) {
+            console.error(err);
+            res.status(500).send('Internal Server Error');
+        }
+    },
+            
 
     getIdByUsername: async (username) => {
         const user = await UserModel.findByUsername(username);
         return user.id;
     },
 
-    getAllUsers: async (_req, res) => {
+    getAllUsers: async (req, res) => {
         try {
+            const username = req.session.user.username;
             const users = await UserModel.getAllUsers();
             const usersWithoutAdmin = users.filter(user => user.username !== 'admin');
-            res.render('users', { usersWithoutAdmin });
+            res.render('users', { usersWithoutAdmin, username });
         } catch (err) {
             console.error(err);
             res.status(500).send('Internal Server Error');
@@ -78,7 +96,7 @@ export const userController = {
                 const userToken = uuidv4();
                 req.session.user = { username, userToken };
                 if (username == "admin") {
-                    res.render('user-management');
+                    res.render('user-management', { username });
                 } else {
                     res.render('NoteCollections', { username });
                 }
@@ -103,6 +121,16 @@ export const userController = {
         try {
             await notesController.deleteAllNotes(username);
             await UserModel.deleteById(userId);
+            await FriendshipModel.deleteByUserId(userId); 
+           
+
+            const collectionIds = await CollectionsModel.getAllCollectionsOfUser(username);
+            for (const collectionId of collectionIds) {
+              await ShareModel.deleteShareByCollectionId(collectionId);
+            }
+            await CollectionsModel.deleteByUsername(username); //tanto en note_collections (esto habría que hacerlo por el collection_id o por el note_id)
+            
+
             res.redirect('/users/allUsers');
         } catch (err) {
             console.error(err);

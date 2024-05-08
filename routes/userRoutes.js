@@ -16,6 +16,8 @@ userRouter.get('/logout', userController.logout);
 userRouter.post('/delete/:userId', userController.delete);
 userRouter.get('/management', requireAdminAuth,(_req, res) => res.render('user-management'));
 
+userRouter.get('/allUsersFromRelationships', requireAdminAuth, userController.getAllUsersFromRelationships);
+
 
 export { userRouter };
 

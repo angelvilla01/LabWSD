@@ -15,7 +15,7 @@
 
     <div class ="username-container">
         <img src="/uploads/user.png" alt="User">
-        <p>Welcome, <%= username %></p>
+        <p>Welcome, <%= session_username %></p>
     </div>
 
     <div style="display: flex; align-items: flex-start; gap: 10px">
@@ -38,7 +38,7 @@
 
     <div class="container">
       <div class="text-center">
-        <h1>List of Users</h1>
+        <h1>Select user to check friendships</h1>
 
         <% if (usersWithoutAdmin.length === 0) { %>
         <p>No users available.</p>
@@ -49,29 +49,22 @@
             <div class="user-item">
               <strong><%= user.username %></strong>
             </div>
-
             <div class="button-group">
-              <form
-                action="/users/delete/<%= user.id %>"
-                method="POST"
-                class="button-form"
-              >
-                <input
-                  type="hidden"
-                  name="username"
-                  value="<%= user.username %>"
-                />
-                <button type="submit" class="delete-button">Delete</button>
-              </form>
+                <form
+                    action="/friendships/checkFriendship/<%= user.id %>"
+                    method="GET"
+                    class="button-form"
+                >
+                    <button type="submit" class="btn-primary">Check</button>
+                </form>
+            
             </div>
+
           </li>
           <% }); %>
         </ul>
         <% } %>
 
-        <form action="/users/postUser" method="GET">
-          <button class="btn-primary" type="submit">Add User</button>
-        </form>
         <form action="/users/logout" method="GET" style="display: inline">
           <button class="delete-button" type="submit">Log Out</button>
         </form>

@@ -5,6 +5,26 @@ const db = new sqlite3.Database('notes.db');
 
 export class FriendshipModel {
 
+
+    static deleteByUserId = async (userId) => {
+        return new Promise((resolve, reject) => {
+            db.run('DELETE FROM Friendships WHERE user1 = ? OR user2 = ?', [userId, userId], (err) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    db.run('DELETE FROM Notifications WHERE user = ? OR senderId = ?', [userId, userId], (err) => {
+                        if (err) {
+                            reject(err);
+                        } else {
+
+                            resolve();
+                        }
+                    });
+                }
+            });
+        });
+    }
+
     static checkIfAlreadyRequested = async (senderId, receiverId) => {
         return new Promise((resolve, reject) => {
             db.get('SELECT * FROM Friendships WHERE user1 = ? AND user2 = ? AND status = "pending"', [senderId, receiverId], (err, row) => {
@@ -32,13 +52,13 @@ export class FriendshipModel {
         );
     };
 
-    static sendRequest = async (senderId, receiverId, type, senderUsername) => {
+    static sendRequest = async (senderId, receiverId, type, sender) => {
         return new Promise((resolve, reject) => {
             db.run('INSERT INTO Friendships (user1, user2) VALUES (?, ?)', [senderId, receiverId], (err) => {
                 if (err) {
                     reject(err);
                 } else {
-                    db.run('INSERT INTO Notifications (user, type, senderUsername) VALUES (?, ?, ?)', [receiverId, type, senderUsername], (err) => {
+                    db.run('INSERT INTO Notifications (user, type, senderId, senderUsername) VALUES (?, ?, ?, ?)', [receiverId, type, senderId, sender], (err) => {
                         if (err) {
                             reject(err);
                         } else {
@@ -70,7 +90,7 @@ export class FriendshipModel {
                 if (err) {
                     reject(err);
                 } else {
-                    db.run('DELETE FROM Notifications WHERE user = ? AND type = "friend_request"', [receiverId], (err) => {
+                    db.run('DELETE FROM Notifications WHERE senderId = ? AND type = "friend_request"', [senderId], (err) => {
                         if (err) {
                             reject(err);
                         } else {
@@ -105,12 +125,8 @@ export class FriendshipModel {
     static getAllRequestsOfUser = async (userId) => {
         return new Promise((resolve, reject) => {
 
-            const sql = `SELECT Notifications.*, Friendships.user1 AS sender_user 
-            FROM Notifications 
-            JOIN Friendships ON Notifications.user = Friendships.user2 
-            WHERE Friendships.user2 = ? 
-            AND Friendships.status = "pending"
-            AND Notifications.type = "friend_request"`;
+            const sql = `SELECT * FROM Notifications WHERE user = ? AND type = "friend_request"`;
+            
 
             db.all(sql, [userId], (err, rows) => {
                 if (err) {

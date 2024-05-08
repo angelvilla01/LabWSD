@@ -5,6 +5,17 @@ const db = new sqlite3.Database('notes.db');
 
 export class CollectionsModel {
 
+    static deleteByUsername = async (username) => {
+        return new Promise((resolve, reject) => {
+            db.run('DELETE FROM collections WHERE username = ?', [username], (err) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve();
+                }
+            });
+        });
+    }
 
     static getCollectionsById = async (collectionId) => {
         return new Promise((resolve, reject) => {
@@ -106,6 +117,18 @@ export class CollectionsModel {
                     reject(err);
                 } else {
                     resolve();
+                }
+            });
+        });
+    }
+
+    static getAllCollections = async () => {
+        return new Promise((resolve, reject) => {
+            db.all('SELECT * FROM collections', (err, rows) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(rows);
                 }
             });
         });

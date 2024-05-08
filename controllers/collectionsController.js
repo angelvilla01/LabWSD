@@ -6,16 +6,20 @@ export const collectionsController = {
     getAllCollectionsFromUser: async (req, res) => {
         try {
             const username = req.session.user.username;
+            let shareBtnVisible = true;
             let collections = [];
             let notes = [];
             if (username === 'admin') {
+                shareBtnVisible = false;
+                notes = await NotesModel.getAllNotes();
+                collections = await CollectionsModel.getAllCollections();
                 //notes = await NotesModel.getAllNotes();
             } else {
                 collections = await CollectionsModel.getAllCollectionsOfUser(username);
                 notes = await NotesModel.getAllNotesOfUser(username);
             }
 
-            res.render('./collections.ejs', { collections, notes, username });
+            res.render('./collections.ejs', { collections, notes, username, shareBtnVisible });
         } catch (err) {
             console.error(err);
             res.status(500).send('Internal Server Error');
