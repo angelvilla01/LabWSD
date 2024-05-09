@@ -1,5 +1,6 @@
 import { CollectionsModel } from '../models/collections.js';
 import { NotesModel } from '../models/note.js';
+import { ShareModel } from '../models/share.js';
 
 export const collectionsController = {
 
@@ -89,6 +90,7 @@ export const collectionsController = {
         try {
             const collectionId = req.params.collectionId;
             await CollectionsModel.deleteCollectionById(collectionId);
+            await ShareModel.deleteShareByCollectionId(collectionId);
             //await CollectionsModel.updateNotesInCollection(collectionId);
             res.redirect('/notes/collections');
         } catch (err) {
