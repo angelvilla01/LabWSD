@@ -14,7 +14,6 @@ export const collectionsController = {
                 shareBtnVisible = false;
                 notes = await NotesModel.getAllNotes();
                 collections = await CollectionsModel.getAllCollections();
-                //notes = await NotesModel.getAllNotes();
             } else {
                 collections = await CollectionsModel.getAllCollectionsOfUser(username);
                 notes = await NotesModel.getAllNotesOfUser(username);
@@ -91,7 +90,6 @@ export const collectionsController = {
             const collectionId = req.params.collectionId;
             await CollectionsModel.deleteCollectionById(collectionId);
             await ShareModel.deleteShareByCollectionId(collectionId);
-            //await CollectionsModel.updateNotesInCollection(collectionId);
             res.redirect('/notes/collections');
         } catch (err) {
             console.error(err);

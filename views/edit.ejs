@@ -11,12 +11,11 @@
 
 
   <div style="display: flex; align-items: flex-start; gap: 10px;">
-    <!-- Botón de Home -->
+   
     <form action="/notes/NoteCollections" method="GET" style="display:inline">
       <button class="go-back-button" type="submit">Home</button>
     </form>
 
-    <!-- Botón de retroceso -->
     <button class="go-back-button" onclick="goBack()">Go back</button>
   
     <script>
@@ -45,7 +44,7 @@
     </main>
   </div>
   
-  <!-- Include scripts at the end of the document -->
+
   <script src="/node_modules/bootstrap/bootstrap.bundle.min.js"></script>
   <script src="https://cdn.tiny.cloud/1/dkphpn1gsp3ppkqod246c55qnejearak0rmxsofl5zzupssx/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
   
@@ -63,9 +62,9 @@
           this.getDoc().body.style.margin = '16px';
         });
       },
-      // Configurar el manejador de archivos
+
       file_picker_callback: function(callback, value, meta) {
-        // Abrir el diálogo de selección de archivos
+      
         var input = document.createElement('input');
         input.setAttribute('type', 'file');
         input.setAttribute('accept', 'image/*');

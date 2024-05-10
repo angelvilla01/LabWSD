@@ -128,7 +128,7 @@ export const userController = {
             for (const collectionId of collectionIds) {
               await ShareModel.deleteShareByCollectionId(collectionId);
             }
-            await CollectionsModel.deleteByUsername(username); //tanto en note_collections (esto habría que hacerlo por el collection_id o por el note_id)
+            await CollectionsModel.deleteByUsername(username); 
             
 
             res.redirect('/users/allUsers');

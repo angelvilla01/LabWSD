@@ -1,6 +1,5 @@
 import sqlite3 from 'sqlite3';
 
-// Conexión a la base de datos SQLite (archivo local)
 const db = new sqlite3.Database('notes.db');
 
 export class CollectionsModel {
@@ -30,7 +29,6 @@ export class CollectionsModel {
     }
 
     static getAllCollectionsOfUser = async (username) => {
-        console.log('username', username);
         return new Promise((resolve, reject) => {
             db.all('SELECT * FROM collections WHERE username = ?', [username], (err, rows) => {
                 if (err) {
@@ -44,7 +42,6 @@ export class CollectionsModel {
 
     static getNotesToAdd = async (collectionId) => {
        
-        console.log('collectionId', collectionId);
         return new Promise((resolve, reject) => {
             db.all('SELECT note_id FROM note_collections WHERE collection_id = ?', [collectionId], (err, rows) => {
                 if (err) {

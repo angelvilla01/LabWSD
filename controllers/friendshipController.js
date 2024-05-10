@@ -16,7 +16,6 @@ export const friendshipController = {
                 const user = await UserModel.findByUsername(username);
                 friends.push(user);
             }
-            console.log('friends', friends);
             res.render('friends_admin', { friends, userId });
         } catch (err) {
             console.error(err);
@@ -34,7 +33,7 @@ export const friendshipController = {
             const friendsTable = await FriendshipModel.getAllFriendsOfUser(userId);
             const friends = [];
             for (const friend of friendsTable) {
-                console.log('friend', friend);
+               
                 const friendId = friend.user1 === userId ? friend.user2 : friend.user1;
                 const username = await UserModel.getUsernameById(friendId);
                 const user = await UserModel.findByUsername(username);
@@ -104,13 +103,12 @@ export const friendshipController = {
     },
 
     sendRequest: async (req, res) => {
-        console.log('req.body', req.body);
         const receiver = req.body.friend_username;
         if (receiver === "admin") {
             res.send('<script>alert("You cannot send a friend request to the admin"); window.location.href = "/friendships";</script>');
             return;
         }
-        console.log('receiver', receiver);
+        
         const sender = req.session.user.username;
         const senderUser = await UserModel.findByUsername(sender);
         const senderId = senderUser.id;
@@ -118,9 +116,7 @@ export const friendshipController = {
         const receiverId = receiverUser.id;
 
         const friendship = await FriendshipModel.getAllFriendsOfUser(senderId);
-        console.log('friendship', friendship);
-
-        
+   
 
         if (senderId === receiverId) {
             res.send('<script>alert("You cannot send a friend request to yourself"); window.location.href = "/friendships";</script>');
@@ -136,7 +132,6 @@ export const friendshipController = {
         try {
 
             const requested = await FriendshipModel.checkIfAlreadyRequested(senderId, receiverId);
-            console.log('requested', requested);
             if (requested) {
                 res.send('<script>alert("Friend request already sent"); window.location.href = "/friendships";</script>');
                 return;
@@ -144,7 +139,6 @@ export const friendshipController = {
 
 
                 await FriendshipModel.sendRequest(senderId, receiverId, 'friend_request', sender);
-                //res.redirect('/friendships');
             }
             res.redirect('/friendships');
         } catch (err) {
@@ -182,17 +176,10 @@ export const friendshipController = {
             const username = req.session.user.username;
             const user = await UserModel.findByUsername(username);
             const userId = user.id;
-
-            //const senderUsername = await UserModel.getUsernameById(userId);
-            console.log('userId', userId);
             const pendingRequests = await FriendshipModel.getAllRequestsOfUser(userId);
-            console.log('pendingRequestsNotifications', pendingRequests);
-            //ahora que tengo los pendingRequestsNotifications, en la tabla friendships tengo que sacar
-            //de esas filas que tengo, donde coincidan user1 y user2 y además el status sea pending
 
 
             const friendsTable = await FriendshipModel.getAllFriendsOfUser(userId);
-            console.log('friendsTable', friendsTable);
             const friends = [];
             for (const friend of friendsTable) {
                 const friendId = friend.user1 === userId ? friend.user2 : friend.user1;
@@ -200,7 +187,7 @@ export const friendshipController = {
                 const user = await UserModel.findByUsername(username);
                 friends.push(user);
             }
-            console.log('requests', pendingRequests);
+
             res.render('friendshipsManage', { pendingRequests, friends, username });
         } catch (err) {
             console.error(err);
@@ -222,10 +209,8 @@ export const friendshipController = {
     },
 
     deleteFriend: async (req, res) => {
-        console.log('req.params', req.params);
-        console.log(req.params)
+
         const friendId = req.params.friendId;
-        console.log('friendId', friendId);
         
         let username
         const session_username = req.session.user.username;

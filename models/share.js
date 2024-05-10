@@ -1,10 +1,7 @@
 import sqlite3 from 'sqlite3';
 
-// Conexión a la base de datos SQLite (archivo local)
+
 const db = new sqlite3.Database('notes.db');
-
-//for you to know, my table SharedNotes has the following columns: id, note_id, shared_with (this is a userId)
-
 export class ShareModel {
     
 

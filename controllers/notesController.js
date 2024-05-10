@@ -17,8 +17,7 @@ export const notesController = {
       } else {
          notes = await NotesModel.getAllNotesOfUser(username);
       }
-      console.log(notes);
-      console.log(username);
+
 
 
       res.render('./index.ejs', { notes, username, shareBtnVisible });
@@ -32,13 +31,11 @@ export const notesController = {
     try {
       const notes = await NotesModel.getAllNotes();
 
-
       notes.forEach(note => {
         if (note.list)
           note.list = note.list.split(',').map(item => item.trim());
       });
 
-      /*  console.log(notes); */
       res.render('./index.ejs', { notes });
     } catch (err) {
       console.error(err);
@@ -71,10 +68,10 @@ export const notesController = {
     try {
       
       const { title, content } = req.body;
+      //this is done to use the proper way to use the uploads route...
       const updatedContent = content.replace(/src="\.\.\/uploads\//g, 'src="/uploads/');
 
       await NotesModel.createNote(title, updatedContent, req.session.user.username);
-      console.log(title, updatedContent, req.session.user.username);
       res.redirect('/notes');
     } catch (err) {
       console.error(err);

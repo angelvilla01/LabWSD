@@ -1,6 +1,6 @@
 // app.js
-import sqlite3 from 'sqlite3';
-import express from 'express';// Importa el controlador
+
+import express from 'express';
 import session from 'express-session';
 import multer from 'multer';
 import path from 'path';
@@ -29,35 +29,36 @@ const storage = multer.diskStorage({
       cb(null, 'uploads/');
     },
     filename: function (_req, file, cb) {
-      // Genera un nombre de archivo único para evitar colisiones
+      
       const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
       cb(null, uniqueSuffix + path.extname(file.originalname));
     }
   });
 
+
   const upload = multer({ storage: storage });
 
-  // Ruta para manejar la carga de archivos
   app.post('/upload', upload.single('file'), (req, res) => {
-    // Aquí deberías construir la URL de la imagen y devolverla en la respuesta
-    console.log(req.file);
-    const imageUrl = '/uploads/' + req.file.filename; // Esto es un ejemplo, asegúrate de ajustarlo según tu configuración
+    
+    
+    const imageUrl = '/uploads/' + req.file.filename; 
     res.json({ imageUrl: imageUrl });
   });
 
-// Rutas notas
+// main-route for notes
+
 import { notesRouter } from './routes/notesRoutes.js';
 app.use('/notes', notesRouter);
-// app.get('/', (_req, res) => res.redirect('/notes'));
 
 
-//routes for user
+
+//main-route for user
 
 import { userRouter } from './routes/userRoutes.js';
 app.use('/users', userRouter);
 app.get('/', (_req, res) => res.redirect('/users'));
 
-//routes for friendships
+//main-route for friendships
 
 import { friendshipRouter } from './routes/friendshipRoutes.js';
 app.use('/friendships', friendshipRouter);

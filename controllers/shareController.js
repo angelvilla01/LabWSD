@@ -19,7 +19,6 @@ export const shareController = {
         },
 
         shareNote: async (req, res) => {
-            console.log('req.body', req.params);
             const { noteId, friendId } = req.params;
         
             try {
@@ -37,8 +36,7 @@ export const shareController = {
                 const user = await UserModel.findByUsername(username);
                 const userId = user.id;
                 const sharedNotesIds = await ShareModel.getSharedNotesWithUser(userId);
-               
-                //const notesIds = sharedNotes.map(note => note.note_id);
+
                 const notes = [];
                 for (const noteId of sharedNotesIds) {
                     const note = await NotesModel.getNotesByIds(noteId.note_id);
@@ -52,11 +50,6 @@ export const shareController = {
                     const collection = await CollectionsModel.getCollectionsById(collectionId.collection_id);
                     collections.push(collection);
                 }
-
-                console.log('notes', notes);
-                console.log('collections', collections);
-                //const collections = await CollectionsModel.getAllCollectionsOfUser(username);
-
 
                 res.render('shared', { notes, username, collections });
             } catch (err) {

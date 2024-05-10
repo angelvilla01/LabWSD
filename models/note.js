@@ -93,7 +93,6 @@ export class NotesModel {
   };
 
   static deleteAllNotes = async (username) => {
-    console.log('username', username);
     return new Promise((resolve, reject) => {
       db.run('DELETE FROM notes WHERE username = ?', [username], (err) => {
         if (err) {
